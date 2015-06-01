@@ -2,7 +2,6 @@ package lx.nio;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.RandomAccessFile;
 import java.net.URISyntaxException;
 import java.net.URL;
