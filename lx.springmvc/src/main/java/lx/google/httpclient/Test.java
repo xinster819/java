@@ -23,7 +23,7 @@ public class Test {
             public void initialize(HttpRequest request) throws IOException {
             }
         });
-        GenericUrl url = new GenericUrl("http://changyan.sohu.com/api/labs/hotnewswall/load");
+        GenericUrl url = new GenericUrl("http://changyan.sohu.com/api/labs/hotnewswall/ ");
         url.set("client_id", "cyqemw6s1");
         HttpRequest hr = hrf.buildGetRequest(url);
         Map<String, String> map = new HashMap<String, String>();
