@@ -1,10 +1,6 @@
 package lx.test;
 
-import static org.junit.Assert.*;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 public class test1 {
 
@@ -12,15 +8,12 @@ public class test1 {
     {
         return a+b;
     }
-    @Before
     public void setUp() throws Exception {
     }
 
-    @After
     public void tearDown() throws Exception {
     }
 
-    @Test
     public void test() {
         int a =2;
         int b =3;
