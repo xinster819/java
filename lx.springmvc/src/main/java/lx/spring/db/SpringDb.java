@@ -12,7 +12,7 @@ public class SpringDb {
     JdbcTemplate jdbcTemplate;
     
     public long go() {
-        return jdbcTemplate.queryForLong("select count(*) from emoji");
+        return jdbcTemplate.queryForLong("select count(*) from agency_daily_record");
     }
 
 }

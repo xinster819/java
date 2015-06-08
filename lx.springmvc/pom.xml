@@ -123,6 +123,19 @@
     </dependencies>
     <build>
         <finalName>lx.springmvc</finalName>
+        <resources>
+        	<resource>
+        		<filtering>true</filtering>
+        	    <directory>src/main/resources</directory>
+        		<includes>
+        			<include>**/*.properties</include>
+        			<include>**/*.xml</include>
+        		</includes>
+        	</resource>
+        </resources>
+        <filters>
+        	<filter>${basedir}/src/main/resources/properties/config.properties</filter>
+        </filters>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -158,6 +171,27 @@
                 <db.username>root</db.username>
                 <db.password>changyan!@#</db.password>
                 <db.url>jdbc:mysql://10.11.157.57:3306/changyan_labs</db.url>
+                <db.initial.size>2</db.initial.size>
+                <db.max.active>8</db.max.active>
+                <db.min.idle>0</db.min.idle>
+                <db.max.idle>2</db.max.idle>
+                <db.max.wait>-1</db.max.wait>
+            </properties>
+        </profile>
+        <profile>
+            <id>home</id>
+            <activation>
+                <jdk>1.7</jdk>
+                <property>
+                    <name>env</name>
+                    <value>home</value>
+                </property>
+            </activation>
+            <properties>
+                <db.jdbc.driverClassName>com.mysql.jdbc.Driver</db.jdbc.driverClassName>
+                <db.username>root</db.username>
+                <db.password>12345</db.password>
+                <db.url>jdbc:mysql://127.0.0.1:3306/advert</db.url>
                 <db.initial.size>2</db.initial.size>
                 <db.max.active>8</db.max.active>
                 <db.min.idle>0</db.min.idle>

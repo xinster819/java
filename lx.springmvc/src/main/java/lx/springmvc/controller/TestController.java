@@ -26,8 +26,8 @@ public class TestController {
     
     @RequestMapping("db")
     @ResponseBody
-    public long db() {
-        return springDb.go();
+    public String db() {
+        return String.valueOf(springDb.go());
     }
     
     @RequestMapping("/dd")
