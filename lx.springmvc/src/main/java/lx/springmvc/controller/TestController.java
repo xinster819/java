@@ -5,13 +5,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMethodException;
 
 @Controller
 public class TestController {
@@ -24,9 +26,10 @@ public class TestController {
 
     @RequestMapping("/ee")
     @ResponseBody
-    public String ee(@RequestParam("tag") String tag) throws IOException {
+    public String ee(@RequestParam("tag") String tag, HttpServletRequest req)
+            throws NoSuchRequestHandlingMethodException {
         if ("error".equals(tag)) {
-            throw new IOException("我擦");
+            throw new NoSuchRequestHandlingMethodException(req);
         }
         return "succ";
     }

@@ -11,5 +11,13 @@
     <bean id="multipartResolver"
         class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></bean>
 
-    <bean id="testExceptionResolver" class="lx.springmvc.exception.TestExceptionResolver"></bean>
+<!--     <bean id="testExceptionResolver" class="lx.springmvc.exception.TestExceptionResolver"></bean> -->
+    <bean id="defaultHandlerExceptionResolver" class="org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver"></bean> 
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/dd"/>
+            <bean class="lx.springmvc.interceptor.TraceLoggerInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+    
 </beans>

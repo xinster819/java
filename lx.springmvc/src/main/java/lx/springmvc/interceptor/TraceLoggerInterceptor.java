@@ -32,7 +32,7 @@ public class TraceLoggerInterceptor implements HandlerInterceptor {
         String key = Thread.currentThread().getId() + "#" + request.getRequestURI() + ":";
         Long start = cache.getIfPresent(key);
         if (start != null && start > 0) {
-            System.out.println(System.currentTimeMillis() - start);
+            System.out.println(key + ": " + (System.currentTimeMillis() - start));
         }
     }
 
