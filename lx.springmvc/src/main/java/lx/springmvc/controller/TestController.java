@@ -5,7 +5,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+
+import lx.spring.db.SpringDb;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +21,15 @@ import org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMeth
 @Controller
 public class TestController {
 
+    @Resource
+    SpringDb springDb;
+    
+    @RequestMapping("db")
+    @ResponseBody
+    public long db() {
+        return springDb.go();
+    }
+    
     @RequestMapping("/dd")
     @ResponseBody
     public String test() {
