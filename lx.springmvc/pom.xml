@@ -16,7 +16,6 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>3.8.1</version>
-<!-- 			<scope>test</scope> -->
 		</dependency>
 		<dependency>
 			<groupId>org.bytedeco.javacpp-presets</groupId>
@@ -119,7 +118,23 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.35</version>
         </dependency>
-        
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.7</version>
+        </dependency>
+    
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.1.2</version>
+        </dependency>
+    
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>1.1.2</version>
+        </dependency>
     </dependencies>
     <build>
         <finalName>lx.springmvc</finalName>
@@ -154,6 +169,13 @@
 					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.1.1</version>
+                <configuration>
+                    <webXml>${basedir}/src/main/webapp/WEB-INF/web.xml</webXml>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
     <profiles>
@@ -188,10 +210,14 @@
                 </property>
             </activation>
             <properties>
+<!--                 <db.jdbc.driverClassName>com.mysql.jdbc.Driver</db.jdbc.driverClassName> -->
+<!--                 <db.username>root</db.username> -->
+<!--                 <db.password>12345</db.password> -->
+<!--                 <db.url>jdbc:mysql://127.0.0.1:3306/advert</db.url> -->
                 <db.jdbc.driverClassName>com.mysql.jdbc.Driver</db.jdbc.driverClassName>
                 <db.username>root</db.username>
-                <db.password>12345</db.password>
-                <db.url>jdbc:mysql://127.0.0.1:3306/advert</db.url>
+                <db.password>changyan!@#</db.password>
+                <db.url>jdbc:mysql://10.11.157.57:3306/changyan_labs</db.url>
                 <db.initial.size>2</db.initial.size>
                 <db.max.active>8</db.max.active>
                 <db.min.idle>0</db.min.idle>
