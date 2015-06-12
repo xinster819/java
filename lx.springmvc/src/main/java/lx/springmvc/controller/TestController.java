@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import lx.jedis.KeyUtils;
 import lx.spring.db.SpringDb;
 
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMethodException;
 
 @Controller
@@ -23,17 +25,29 @@ public class TestController {
 
     @Resource
     SpringDb springDb;
-    
+
+    @Resource
+    KeyUtils keyUtils;
+
     @RequestMapping("db")
     @ResponseBody
     public String db() {
         return String.valueOf(springDb.go());
     }
-    
-    @RequestMapping("/dd")
+
+    @RequestMapping("/jedis")
     @ResponseBody
     public String test() {
+        keyUtils.getIsvCmtLatestKey(3910, "hot");
         return "dd";
+    }
+
+    @RequestMapping("/hello")
+    public ModelAndView hello() {
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("datas", springDb.select(1, 50));
+        mv.setViewName("hello");
+        return mv;
     }
 
     @RequestMapping("/ee")

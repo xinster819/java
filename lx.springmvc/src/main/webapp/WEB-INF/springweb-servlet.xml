@@ -7,7 +7,7 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
         
          <context:property-placeholder location="classpath:*properties/config.properties"/>
-    <import resource="classpath:spring/app-db.xml"/>    
+    <import resource="classpath:spring/app-*.xml"/>    
     
     <context:component-scan base-package="lx"></context:component-scan>
     <mvc:annotation-driven />
@@ -23,5 +23,17 @@
             <bean class="lx.springmvc.interceptor.TraceLoggerInterceptor"></bean>
         </mvc:interceptor>
     </mvc:interceptors>
+    
+    <bean id="velocityConfig" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+        <property name="resourceLoaderPath">
+            <value>/</value>
+        </property>
+    </bean>
+
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
+        <property name="prefix"><value>/WEB-INF/vm/</value></property>
+        <property name="suffix"><value>.vm</value></property>
+        <property name="exposeSpringMacroHelpers"><value>true</value></property>
+    </bean>
     
 </beans>
