@@ -9,8 +9,11 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import lx.jedis.KeyUtils;
-import lx.spring.db.SpringDb;
+import lx.spring.db.MybatisService;
+import lx.spring.db.jdbc.SpringDb;
+import lx.spring.db.mybatis.Mybatis;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,16 +26,51 @@ import org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMeth
 @Controller
 public class TestController {
 
-    @Resource
+//    @Resource
     SpringDb springDb;
 
     @Resource
     KeyUtils keyUtils;
 
+    @Autowired
+    Mybatis mybatis;
+
+    @Resource
+    MybatisService mybatisService;
+
     @RequestMapping("db")
     @ResponseBody
     public String db() {
-        return String.valueOf(springDb.go());
+//        return String.valueOf(springDb.go());
+        return "dd";
+    }
+
+    @RequestMapping("mybatis")
+    @ResponseBody
+    public String mybatis() {
+        mybatisService.print();
+        return "123";
+    }
+
+    @RequestMapping("insert")
+    @ResponseBody
+    public String mybatisInsert() throws Exception {
+        mybatisService.insert();
+        return "123";
+    }
+
+    @RequestMapping("insert2")
+    @ResponseBody
+    public String mybatisInsert2() {
+        mybatis.insert();
+        return "123";
+    }
+
+    @RequestMapping("insert3")
+    @ResponseBody
+    public String mybatisInsert3() {
+        springDb.insert();
+        return "123";
     }
 
     @RequestMapping("/jedis")
@@ -45,7 +83,7 @@ public class TestController {
     @RequestMapping("/hello")
     public ModelAndView hello() {
         ModelAndView mv = new ModelAndView();
-        mv.addObject("datas", springDb.select(1, 50));
+//        mv.addObject("datas", springDb.select(1, 50));
         mv.setViewName("hello");
         return mv;
     }

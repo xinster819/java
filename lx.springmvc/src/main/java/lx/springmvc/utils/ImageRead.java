@@ -7,7 +7,7 @@ import org.bytedeco.javacpp.BytePointer;
 import org.bytedeco.javacpp.lept.PIX;
 import org.bytedeco.javacpp.tesseract.TessBaseAPI;
 
-public class t {
+public class ImageRead {
     public static void main(String[] args) {
         BytePointer outText;
 

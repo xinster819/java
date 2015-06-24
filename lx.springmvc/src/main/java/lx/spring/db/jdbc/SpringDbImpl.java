@@ -1,10 +1,8 @@
-package lx.spring.db;
+package lx.spring.db.jdbc;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-
-import javax.annotation.Resource;
 
 import lx.springmvc.vo.LabsStat;
 
@@ -12,14 +10,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
-@Service
-public class SpringDb {
+@Transactional(isolation = Isolation.SERIALIZABLE)
+public class SpringDbImpl implements SpringDb {
 
-    static Logger logger = LoggerFactory.getLogger(SpringDb.class);
+    static Logger logger = LoggerFactory.getLogger(SpringDbImpl.class);
 
-    @Resource
     JdbcTemplate jdbcTemplate;
 
     @SuppressWarnings("deprecation")
@@ -27,6 +25,12 @@ public class SpringDb {
         logger.info("info lx");
         logger.debug("debug lx");
         return jdbcTemplate.queryForLong("select count(*) from labs_stat");
+    }
+
+    public void insert() {
+        jdbcTemplate.execute("insert into article (url, content) values ('aaa','aaa')");
+        LabsStat a = null;
+        a.getId();
     }
 
     public List<LabsStat> select(int offset, int limit) {
@@ -46,6 +50,14 @@ public class SpringDb {
                 return ls;
             }
         }, offset, limit);
+    }
+
+    public JdbcTemplate getJdbcTemplate() {
+        return jdbcTemplate;
+    }
+
+    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
 }
