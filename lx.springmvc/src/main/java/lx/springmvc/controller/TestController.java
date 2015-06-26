@@ -26,7 +26,7 @@ import org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMeth
 @Controller
 public class TestController {
 
-//    @Resource
+    @Resource
     SpringDb springDb;
 
     @Resource
@@ -83,7 +83,7 @@ public class TestController {
     @RequestMapping("/hello")
     public ModelAndView hello() {
         ModelAndView mv = new ModelAndView();
-//        mv.addObject("datas", springDb.select(1, 50));
+        mv.addObject("datas", springDb.select(1, 50));
         mv.setViewName("hello");
         return mv;
     }
