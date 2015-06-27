@@ -17,11 +17,14 @@
             <artifactId>junit</artifactId>
             <version>3.8.1</version>
         </dependency>
+        
+        <!-- 图片识别用的工具类 -->
         <dependency>
             <groupId>org.bytedeco.javacpp-presets</groupId>
             <artifactId>tesseract</artifactId>
             <version>3.03-rc1-0.11</version>
         </dependency>
+        
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
@@ -38,13 +41,6 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
-            <version>3.2.6.RELEASE</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-aop</artifactId>
             <version>3.2.6.RELEASE</version>
             <scope>compile</scope>
         </dependency>
@@ -214,7 +210,10 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.1.1</version>
                 <configuration>
+                    <!-- 把source code 都打成jar包 -->
+                    <archiveClasses>true</archiveClasses>
                     <webXml>${basedir}/src/main/webapp/WEB-INF/web.xml</webXml>
+                    <packagingExcludes>WEB-INF/web.xml</packagingExcludes>
                 </configuration>
             </plugin>
         </plugins>

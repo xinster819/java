@@ -38,18 +38,9 @@
         <property name="transactionManager" ref="transactionManager" />
         <property name="isolationLevelName" value="ISOLATION_SERIALIZABLE" />
     </bean>
-<!--     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"> -->
-<!--         <constructor-arg ref="dataSource" /> -->
-<!--     </bean> -->
-    <!-- <aop:aspectj-autoproxy expose-proxy="true" /> -->
-    <!-- <context:component-scan base-package="lx.spring.db"></context:component-scan> -->
-    <!-- <tx:annotation-driven transaction-manager="transactionManager" /> -->
-
-    <!-- <tx:advice id="txAdvice" transaction-manager="transactionManager"> -->
-    <!-- <tx:attributes> -->
-    <!-- <tx:method name="*" rollback-for="NullPointerException" /> -->
-    <!-- </tx:attributes> -->
-    <!-- </tx:advice> -->
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <constructor-arg ref="dataSource" />
+    </bean>
 
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
@@ -69,7 +60,7 @@
         <property name="basePackage" value="lx.spring.db.mapper" />
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
     </bean>
-    <!-- <bean id="springDb" class="lx.spring.db.jdbc.SpringDbImpl"> -->
-    <!-- <property name="jdbcTemplate" ref="jdbcTemplate"></property> -->
-    <!-- </bean> -->
+    <bean id="springDb" class="lx.spring.db.jdbc.SpringDbImpl">
+        <property name="jdbcTemplate" ref="jdbcTemplate"></property>
+    </bean>
 </beans>
