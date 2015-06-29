@@ -28,9 +28,18 @@
         <property name="resourceLoaderPath">
             <value>/</value>
         </property>
+        <property name="velocityProperties">
+            <props>
+                <prop key="input.encoding">utf-8</prop>
+                <prop key="output.encoding">utf-8</prop>
+                <prop key="contentType">text/html;charset=utf-8</prop>
+            </props>
+        </property>
     </bean>
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
+        <!-- 如果不设置这个，response header默认的charset会是iso-8859-1, 具体参见AbstractView -->
+        <property name="contentType" value="text/html;charset=utf-8" />
         <property name="prefix"><value>/WEB-INF/vm/</value></property>
         <property name="suffix"><value>.vm</value></property>
         <property name="exposeSpringMacroHelpers"><value>true</value></property>
