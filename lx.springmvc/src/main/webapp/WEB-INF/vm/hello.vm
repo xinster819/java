@@ -6,7 +6,7 @@
 <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <h2 class="sub-header">这个是接口响应时间统计</h2>
+    <h2 class="sub-header">这个是接口响应时间统计2</h2>
     <table class="table table-striped">
       <thead>
         <tr>
