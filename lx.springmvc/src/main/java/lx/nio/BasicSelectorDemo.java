@@ -1,11 +1,7 @@
 package lx.nio;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.channels.FileChannel;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.util.Iterator;
@@ -15,10 +11,10 @@ public class BasicSelectorDemo {
 
     public static void main(String[] args) throws IOException, URISyntaxException {
 
-        URL url = BasicChannelDemo.class.getResource("/nio/words.txt");
-        File f = new File(url.toURI());
-        RandomAccessFile aFile = new RandomAccessFile(f, "rw");
-        FileChannel channel = aFile.getChannel();
+        // URL url = BasicChannelDemo.class.getResource("/nio/words.txt");
+        // File f = new File(url.toURI());
+        // RandomAccessFile aFile = new RandomAccessFile(f, "rw");
+        // FileChannel channel = aFile.getChannel();
         Selector selector = Selector.open();
         // channel.configureBlocking(false);
         //

@@ -1,9 +1,7 @@
 package lx.google.httpclient;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -75,13 +73,6 @@ public class Daman {
             try {
                 url = new URL(img);
                 InputStream is = url.openStream();
-
-                byte[] b = new byte[2048];
-                int length;
-
-                while ((length = is.read(b)) != -1) {
-                }
-
                 is.close();
             } catch (MalformedURLException e) {
                 e.printStackTrace();

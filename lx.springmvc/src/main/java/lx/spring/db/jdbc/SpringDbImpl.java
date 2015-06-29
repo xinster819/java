@@ -20,17 +20,8 @@ public class SpringDbImpl implements SpringDb {
 
     JdbcTemplate jdbcTemplate;
 
-    @SuppressWarnings("deprecation")
-    public long go() {
-        logger.info("info lx");
-        logger.debug("debug lx");
-        return jdbcTemplate.queryForLong("select count(*) from labs_stat");
-    }
-
     public void insert() {
         jdbcTemplate.execute("insert into article (url, content) values ('aaa','aaa')");
-        LabsStat a = null;
-        a.getId();
     }
 
     public List<LabsStat> select(int offset, int limit) {
@@ -43,8 +34,8 @@ public class SpringDbImpl implements SpringDb {
                 ls.setUri(rs.getString("uri"));
                 ls.setMs200(rs.getInt("ms_200"));
                 ls.setMs500(rs.getInt("ms_500"));
-                ls.setMs500(rs.getInt("ms_1000"));
-                ls.setMs500(rs.getInt("ms_2000"));
+                ls.setMs1000(rs.getInt("ms_1000"));
+                ls.setMs2000(rs.getInt("ms_2000"));
                 ls.setDate(rs.getInt("date"));
                 ls.setReqCount(rs.getInt("req_count"));
                 return ls;
