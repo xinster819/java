@@ -26,6 +26,8 @@
         <property name="maxActive" value="10" />
         <property name="maxIdle" value="5" />
         <property name="minIdle" value="2" />
+        <prop key="testWhileIdle">true</prop>
+        <prop key="validationQuery">select 1</prop>
         <!-- <property name="defaultAutoCommit" value="false" /> -->
     </bean>
     <bean id="transactionManager"

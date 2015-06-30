@@ -25,6 +25,7 @@ public class SpringDbImpl implements SpringDb {
     }
 
     public List<LabsStat> select(int offset, int limit) {
+        logger.error("this is a test");
         return jdbcTemplate.query("select * from labs_stat order by date desc limit ? , ?", new RowMapper<LabsStat>() {
             @Override
             public LabsStat mapRow(ResultSet rs, int rowNum) throws SQLException {
