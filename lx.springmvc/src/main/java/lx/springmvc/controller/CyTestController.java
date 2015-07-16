@@ -6,6 +6,7 @@ import lx.spring.db.mybatis.CyMybatis;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -17,8 +18,9 @@ public class CyTestController {
 
     @RequestMapping("select")
     @ResponseBody
-    public String db() {
-        cyMybatis.select();
+    public String db(@RequestParam("isvid") int isvid,
+            @RequestParam(value = "encode", defaultValue = "utf-8") String encode) {
+        cyMybatis.select(isvid, encode);
         return "dd";
     }
 }

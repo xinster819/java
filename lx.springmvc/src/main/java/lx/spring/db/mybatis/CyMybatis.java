@@ -13,27 +13,27 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CyMybatis {
-    
+
     @Resource
     MultiDataSource multiDataSource;
-    
+
     @Resource
     TopicMapper topicMapper;
 
-    public void select() {
+    public void select(int isvid, String encode) {
         for (int start = 33; start <= 64; start++) {
             multiDataSource.put(Thread.currentThread().getId(), String.valueOf(start));
-            List<Topic> topics = topicMapper.selectByIsvid(98765);
+            List<Topic> topics = topicMapper.selectByIsvid(isvid);
             if (topics != null) {
                 for (Topic topic : topics) {
                     try {
-                        lx.google.httpclient.spider.SpiderUtils.spider(topic.getTopicUrl());
+                        lx.google.httpclient.ImageDownloadUtil.spider(topic.getTopicUrl(), encode);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
             }
         }
-        lx.google.httpclient.spider.SpiderUtils.print();
+        lx.google.httpclient.ImageDownloadUtil.print();
     }
 }
