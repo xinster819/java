@@ -1,4 +1,4 @@
-package lx.springmvc.utils;
+package lx.utils;
 
 import java.io.FileOutputStream;
 import java.io.IOException;

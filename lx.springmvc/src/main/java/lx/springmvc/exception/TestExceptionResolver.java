@@ -17,6 +17,10 @@ import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
  */
 public class TestExceptionResolver extends SimpleMappingExceptionResolver {
 
+    public TestExceptionResolver() {
+        System.out.println("进来了");
+    }
+    
     @Override
     protected ModelAndView doResolveException(HttpServletRequest request, HttpServletResponse response, Object handler,
             Exception ex) {
