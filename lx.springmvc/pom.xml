@@ -280,11 +280,11 @@
                 <jdk>1.7</jdk>
                 <property>
                     <name>env</name>
-                    <value>company</value>
+                    <value>sohu</value>
                 </property>
             </activation>
             <properties>
-                <env>company</env>
+                <env>sohu</env>
                 <db.jdbc.driverClassName>com.mysql.jdbc.Driver</db.jdbc.driverClassName>
                 <db.username>root</db.username>
                 <db.password>changyan!@#</db.password>
@@ -297,20 +297,20 @@
             </properties>
         </profile>
         <profile>
-            <id>home</id>
+            <id>shit</id>
             <activation>
                 <jdk>1.7</jdk>
                 <property>
                     <name>env</name>
-                    <value>home</value>
+                    <value>shit</value>
                 </property>
             </activation>
             <properties>
-                <env>home</env>
+                <env>shit</env>
                 <db.jdbc.driverClassName>com.mysql.jdbc.Driver</db.jdbc.driverClassName>
                 <db.username>root</db.username>
-                <db.password>12345</db.password>
-                <db.url>jdbc:mysql://127.0.0.1:3306/advert</db.url>
+                <db.password>changyan!@#</db.password>
+                <db.url>jdbc:mysql://10.11.157.57:3306/changyan_labs</db.url>
                 <db.initial.size>2</db.initial.size>
                 <db.max.active>8</db.max.active>
                 <db.min.idle>0</db.min.idle>
