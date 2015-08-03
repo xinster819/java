@@ -19,14 +19,14 @@
             <artifactId>junit</artifactId>
             <version>3.8.1</version>
         </dependency>
-        
+
         <!-- 图片识别用的工具类 -->
         <dependency>
             <groupId>org.bytedeco.javacpp-presets</groupId>
             <artifactId>tesseract</artifactId>
             <version>3.03-rc1-0.11</version>
         </dependency>
-        
+
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
@@ -94,13 +94,13 @@
             <version>${spring}</version>
             <scope>compile</scope>
         </dependency>
-        
+
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-redis</artifactId>
             <version>1.4.2.RELEASE</version>
         </dependency>
-        
+
 
         <dependency>
             <groupId>org.mybatis</groupId>
@@ -143,7 +143,7 @@
             <artifactId>google-http-client-test</artifactId>
             <version>1.19.0</version>
         </dependency>
-        
+
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
@@ -192,14 +192,19 @@
             <artifactId>jedis</artifactId>
             <version>2.7.2</version>
         </dependency>
-    
+
         <!-- html parser -->
         <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
             <version>1.8.2</version>
         </dependency>
-        
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+            <version>2.4.1</version>
+        </dependency>
+
     </dependencies>
     <build>
         <finalName>lx.springmvc</finalName>
@@ -259,18 +264,19 @@
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>8.1.9.v20130131</version>
                 <configuration>
-                  <webAppConfig>
-                    <contextPath>/</contextPath>
-                    <descriptor>${basedir}/src/main/webapp/WEB-INF/web.xml</descriptor>
-                  </webAppConfig>
-                  <connectors>
-                    <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
-                      <port>8080</port>
-                      <maxIdleTime>60000</maxIdleTime>
-                    </connector>
-                  </connectors>
+                    <webAppConfig>
+                        <contextPath>/</contextPath>
+                        <descriptor>${basedir}/src/main/webapp/WEB-INF/web.xml</descriptor>
+                    </webAppConfig>
+                    <connectors>
+                        <connector
+                            implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
+                            <port>8080</port>
+                            <maxIdleTime>60000</maxIdleTime>
+                        </connector>
+                    </connectors>
                 </configuration>
-              </plugin>
+            </plugin>
         </plugins>
     </build>
     <profiles>

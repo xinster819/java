@@ -1,5 +1,7 @@
 package lx.utils;
 
+import lx.vo.God;
+
 public class RegexUtil {
 
     final static String MOBILE_REGEX = "1(3|4|5|7|8)[0-9]{9}";
@@ -27,6 +29,7 @@ public class RegexUtil {
     }
 
     public static void main(String[] args) {
-        System.out.println(specharsReplace("540818255@@qq.com"));
+        God  god = new God(123);
+        god.print();
     }
 }

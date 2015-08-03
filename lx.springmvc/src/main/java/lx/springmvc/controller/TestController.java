@@ -80,10 +80,10 @@ public class TestController {
         return "dd";
     }
 
-    @RequestMapping("/hello")
-    public ModelAndView hello() {
+    @RequestMapping("/count")
+    public ModelAndView hello(@RequestParam("date") int date) {
         ModelAndView mv = new ModelAndView();
-        mv.addObject("datas", springDb.select(1, 50));
+        mv.addObject("datas", springDb.select(date));
         mv.setViewName("hello");
         return mv;
     }
