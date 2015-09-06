@@ -1,6 +1,10 @@
 package lx.netty;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 import redis.clients.jedis.HostAndPort;
+
 // lx 2015年8月3日: 从jedis copy过来的
 public class Host {
     public static final String LOCALHOST_STR = "localhost";
@@ -52,5 +56,16 @@ public class Host {
             return LOCALHOST_STR;
 
         return host;
+    }
+
+    public static void main(String [] args) {
+        InetAddress addr;
+        try {
+            addr = InetAddress.getLocalHost();
+            System.out.println(addr.getHostAddress());//获得本机IP
+        } catch (UnknownHostException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 }

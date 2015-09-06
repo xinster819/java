@@ -62,7 +62,5 @@
         <property name="basePackage" value="lx.spring.db.mapper" />
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
     </bean>
-    <bean id="springDb" class="lx.spring.db.jdbc.SpringDb">
-        <property name="jdbcTemplate" ref="jdbcTemplate"></property>
-    </bean>
+    <bean id="springDb" class="lx.spring.db.jdbc.SpringDb" />
 </beans>

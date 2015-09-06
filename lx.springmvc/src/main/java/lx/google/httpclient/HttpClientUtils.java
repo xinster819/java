@@ -3,6 +3,7 @@ package lx.google.httpclient;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -38,7 +39,10 @@ public class HttpClientUtils {
             hr.setHeaders(headers);
             HttpResponse resp = hr.execute();
             if (resp.getStatusCode() == HttpStatusCodes.STATUS_CODE_OK) {
-                return parseAsString(resp, encode);
+                Charset charset = resp.getContentCharset();
+                if (charset != null) {
+                    return parseAsString(resp, encode);
+                }
             }
         } catch (HttpResponseException e) {
         } catch (IOException e) {

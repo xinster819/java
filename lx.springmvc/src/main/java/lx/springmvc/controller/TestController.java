@@ -38,13 +38,6 @@ public class TestController {
     @Resource
     MybatisService mybatisService;
 
-    @RequestMapping("db")
-    @ResponseBody
-    public String db() {
-//        return String.valueOf(springDb.go());
-        return "dd";
-    }
-
     @RequestMapping("mybatis")
     @ResponseBody
     public String mybatis() {
