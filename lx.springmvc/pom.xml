@@ -204,18 +204,9 @@
 			<artifactId>commons-pool2</artifactId>
 			<version>2.4.1</version>
 		</dependency>
-
-		<!-- netty -->
-		<dependency>
-			<groupId>io.netty</groupId>
-			<artifactId>netty-all</artifactId>
-			<version>4.0.29.Final</version>
-		</dependency>
-
-
 	</dependencies>
 	<build>
-		<finalName>lx.springmvc</finalName>
+		<finalName>springmvc</finalName>
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
@@ -228,6 +219,7 @@
 				<directory>src/main/resources</directory>
 				<includes>
 					<include>**/*.properties</include>
+					<include>**/*.sh</include>
 				</includes>
 			</resource>
 		</resources>
@@ -267,28 +259,11 @@
 					</webResources>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.mortbay.jetty</groupId>
-				<artifactId>jetty-maven-plugin</artifactId>
-				<version>8.1.9.v20130131</version>
-				<configuration>
-					<webAppConfig>
-						<contextPath>/</contextPath>
-						<descriptor>${basedir}/src/main/webapp/WEB-INF/web.xml</descriptor>
-					</webAppConfig>
-					<connectors>
-						<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
-							<port>8080</port>
-							<maxIdleTime>60000</maxIdleTime>
-						</connector>
-					</connectors>
-				</configuration>
-			</plugin>
 		</plugins>
 	</build>
 	<profiles>
 		<profile>
-			<id>company</id>
+			<id>dev</id>
 			<activation>
 				<jdk>1.7</jdk>
 				<property>
@@ -297,20 +272,11 @@
 				</property>
 			</activation>
 			<properties>
-				<env>sohu</env>
-				<db.jdbc.driverClassName>com.mysql.jdbc.Driver</db.jdbc.driverClassName>
-				<db.username>cmt</db.username>
-				<db.password>cmt</db.password>
-				<db.url>jdbc:mysql://10.10.85.62:3306/cyanstat</db.url>
-				<db.initial.size>2</db.initial.size>
-				<db.max.active>8</db.max.active>
-				<db.min.idle>0</db.min.idle>
-				<db.max.idle>2</db.max.idle>
-				<db.max.wait>-1</db.max.wait>
+				<env>debug</env>
 			</properties>
 		</profile>
 		<profile>
-			<id>shit</id>
+			<id>prod</id>
 			<activation>
 				<jdk>1.7</jdk>
 				<property>
@@ -319,16 +285,8 @@
 				</property>
 			</activation>
 			<properties>
-				<env>shit</env>
-				<db.jdbc.driverClassName>com.mysql.jdbc.Driver</db.jdbc.driverClassName>
-				<db.username>cmt</db.username>
-				<db.password>cmt</db.password>
-				<db.url>jdbc:mysql://10.10.85.62:3306/cyanstat</db.url>
-				<db.initial.size>2</db.initial.size>
-				<db.max.active>8</db.max.active>
-				<db.min.idle>0</db.min.idle>
-				<db.max.idle>2</db.max.idle>
-				<db.max.wait>-1</db.max.wait>
+				<env>prod</env>
+				<resin.server>10.11.157.130:8080</resin.server>
 			</properties>
 		</profile>
 	</profiles>
