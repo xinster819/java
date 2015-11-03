@@ -17,8 +17,8 @@ fi
 version=$("$java_home" -version 2>&1 | awk -F '"' '/version/ {print $2}')
 echo jdk version "$version"
 
-base="${deploy.base}"
-name=${demo}
+name=${name}
+base="/opt/cmt/demo"
 
 data_home="/opt/datas/"
 log_home="/opt/logs/resin"
