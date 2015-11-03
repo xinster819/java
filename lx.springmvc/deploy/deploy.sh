@@ -42,7 +42,7 @@ do
     conf="${conf_home}/$name-$port.xml"
     deploy="$base/$name/$port"
     webapp="$deploy/webapp"
-    shell="${bin_home}/$name-%port.sh";
+    shell="${bin_home}/$name-$port.sh";
 
     #create deploy dir
     ssh root@$host "mkdir -p ${data_home}/$name/$port"
