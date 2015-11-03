@@ -1,7 +1,7 @@
 <resin xmlns="http://caucho.com/ns/resin" xmlns:resin="urn:java:com.caucho.resin">
 
 	<!-- property-based Resin configuration -->
-	<resin:properties path="${deploy.resin.home}/conf/resin.properties"
+	<resin:properties path="/opt/apps/resin/conf/resin.properties"
 		optional="true" />
 	<resin:properties path="cloud:/resin.properties"
 		optional="true" recover="true" />
@@ -29,15 +29,15 @@
 	<logger name="com.caucho.loader" level="config" />
 
 	<stdout-log
-		path="${deploy.log.home}/${labs.plugins.project.name}-##port##/stdout/stdout.log"
+		path="/opt/logs/resin/${name}-##port##/stdout/stdout.log"
 		rollover-period="1D" rollover-count="5" />
 	<stderr-log
-		path="${deploy.log.home}/${labs.plugins.project.name}-##port##/stderr/stderr.log"
+		path="/opt/logs/resin/${name}-##port##/stderr/stderr.log"
 		rollover-period="1D" rollover-count="5" />
 
 	<!-- - Default configuration applied to all clusters, including - HTTP, 
 		HTTPS, and /resin-admin configuration. -->
-	<resin:import path="${deploy.resin.home}/conf/cluster-default.xml" />
+	<resin:import path="/opt/apps/resin/conf/cluster-default.xml" />
 
 	<!-- - Remote management requires at least one enabled admin user. -->
 	<resin:AdminAuthenticator>
@@ -87,7 +87,7 @@
 			<jvm-arg>-XX:+PrintClassHistogram</jvm-arg>
 			<jvm-arg>-XX:-TraceClassUnloading</jvm-arg>
 			<jvm-arg>-verbose:gc</jvm-arg>
-			<jvm-arg>-Xloggc:${deploy.log.home}/${labs.plugins.project.name}-##port##/gc.log</jvm-arg>
+			<jvm-arg>-Xloggc:/opt/logs/resin/${name}-##port##/gc.log</jvm-arg>
 			<jvm-arg>-Dcom.sun.management.jmxremote</jvm-arg>
 			<jvm-arg>-Dcom.sun.management.jmxremote.port=1##port##</jvm-arg>
 			<jvm-arg>-Dcom.sun.management.jmxremote.ssl=false</jvm-arg>
@@ -125,7 +125,7 @@
 				path-suffix="${elastic_webapp?resin.id:''}" />
 
 			<access-log
-				path="${deploy.log.home}/${labs.plugins.project.name}-##port##/access/access.log"
+				path="/opt/logs/resin/${name}-##port##/access/access.log"
 				format='%h""%{%y-%m-%d %H:%M:%S.%s}t""%s""%D""%r""%{Referer}i""%{X-Forwarded-For}i""%{X-Real-IP}i""%{IPLOCATION}i""%{User-Agent}i'
 				rollover-period="1D" rollover-count="5" />
 		</host-default>
@@ -141,7 +141,7 @@
 		<host id="" root-directory=".">
 			<!-- - webapps can be overridden/extended in the resin.xml -->
 			<web-app id="/"
-				root-directory="${deploy.base}/${labs.plugins.project.name}/##port##/webapp" />
+				root-directory="/opt/cmt/demo/${name}/##port##/webapp" />
 		</host>
 
 	</cluster>

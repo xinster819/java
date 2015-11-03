@@ -20,7 +20,7 @@ echo jdk version "$version"
 name=${name}
 base="/opt/cmt/demo"
 
-data_home="/opt/datas/"
+data_home="/opt/data"
 log_home="/opt/logs/resin"
 bin_home="/opt/bin/resin"
 conf_home="/opt/conf/resin"
@@ -39,11 +39,10 @@ do
     port=`echo $server | cut -d: -f2`
 
     log="${log_home}/$name-$port"
-    shell="${bin_home}/$name-$port.sh"
     conf="${conf_home}/$name-$port.xml"
     deploy="$base/$name/$port"
     webapp="$deploy/webapp"
-    
+    shell="${bin_home}/$name-%port.sh";
 
     #create deploy dir
     ssh root@$host "mkdir -p ${data_home}/$name/$port"
@@ -61,9 +60,9 @@ do
     
     #process shell script
     ssh root@$host "mkdir -p ${bin_home}"
-    scp *.sh root@$host:${bin_home}
-    ssh root@$host "rm -f ${bin_home}/deploy*.sh && chmod +x ${bin_home}/*.sh"
-    ssh root@$host "mv -f ${bin_home}/resin-$name.sh $shell"
+    scp start.sh root@$host:${bin_home}
+    ssh root@$host "chmod +x ${bin_home}/$name/start.sh"
+    ssh root@$host "mv -f ${bin_home}/start.sh $shell"
     ssh root@$host "sed -i 's/##conf##/${conf//\//\\/}/' $shell"
     ssh root@$host "chown resin $shell"
 
@@ -71,12 +70,13 @@ do
     ssh root@$host "mkdir -p ${conf_home}"
     ssh root@$host "chown -R resin ${conf_home}"
     scp *.xml resin@$host:${conf_home}
-    ssh resin@$host "mv -f ${conf_home}/resin4-$name.xml $conf"
+    ssh resin@$host "mv -f ${conf_home}/resin4.xml $conf"
     ssh resin@$host "sed -i 's/##port##/$port/' $conf"
 
     #unpackage war
     ssh root@$host "mkdir -p $webapp"
     ssh root@$host "chown -R resin $deploy"
+    
     scp $name.war resin@$host:$deploy
     ssh resin@$host "cd $webapp && rm -rf * && ${java_home}/bin/jar xf $deploy/$name.war"
     ssh root@$host "cp $deploy/$name.war $deploy/$name-${serial_no}.war"
