@@ -1,4 +1,4 @@
-package lx.utils;
+package utils;
 
 import static org.bytedeco.javacpp.lept.pixDestroy;
 import static org.bytedeco.javacpp.lept.pixRead;
@@ -7,6 +7,11 @@ import org.bytedeco.javacpp.BytePointer;
 import org.bytedeco.javacpp.lept.PIX;
 import org.bytedeco.javacpp.tesseract.TessBaseAPI;
 
+/**
+ * 图片识别，用google的tesseract图片识别库，效果还不错
+ * 
+ * @author alchemist
+ */
 public class OCRUtil {
 
     final static String DATA_PATH = "others";

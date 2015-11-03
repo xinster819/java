@@ -1,7 +1,12 @@
-package lx.utils;
+package utils;
 
 import lx.vo.God;
 
+/**
+ * 一些常用的验证正则表达式，例： 邮箱，手机，身份证。。。
+ * 
+ * @author alchemist
+ */
 public class RegexUtil {
 
     final static String MOBILE_REGEX = "1(3|4|5|7|8)[0-9]{9}";
