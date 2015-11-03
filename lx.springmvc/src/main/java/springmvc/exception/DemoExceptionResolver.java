@@ -36,7 +36,7 @@ public class DemoExceptionResolver extends SimpleMappingExceptionResolver {
             LOGGER.info("http_code: {}, msg: {}", 404, ex.getMessage());
         }
         ModelAndView mv = new ModelAndView();
-        mv.addObject("msg", ex.printStackTrace(););
+        mv.addObject("msg", ex);
         mv.setViewName("error");
         return mv;
     }
