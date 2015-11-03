@@ -77,8 +77,8 @@ do
     ssh root@$host "mkdir -p $webapp"
     ssh root@$host "chown -R resin $deploy"
     
-    scp $name.war resin@$host:$deploy
-    ssh resin@$host "cd $webapp && rm -rf * && ${java_home}/bin/jar xf $deploy/$name.war"
+    scp ../../$name.war resin@$host:$deploy
+    ssh resin@$host "cd $webapp && rm -rf * && /opt/apps/jdk/bin/jar xf $deploy/$name.war"
     ssh root@$host "cp $deploy/$name.war $deploy/$name-${serial_no}.war"
     
     #create soft link for data resources
