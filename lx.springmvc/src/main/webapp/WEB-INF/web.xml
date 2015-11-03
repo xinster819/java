@@ -23,7 +23,7 @@
     </filter-mapping>
 
     <servlet>
-        <servlet-name>springweb</servlet-name>
+        <servlet-name>spring</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>
             <param-name>throwExceptionIfNoHandlerFound</param-name>
@@ -31,7 +31,7 @@
         </init-param>
     </servlet>
     <servlet-mapping>
-        <servlet-name>springweb</servlet-name>
+        <servlet-name>spring</servlet-name>
         <url-pattern>/api/*</url-pattern>
     </servlet-mapping>
 </web-app>
