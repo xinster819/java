@@ -1,6 +1,6 @@
 #!/bin/sh
 resin="/opt/apps/resin"
-if[! -d "$resin"]; then
+if [ ! -d "$resin" ]; then
 echo "please install resin4 first. thanks"
 exit 0
 fi
