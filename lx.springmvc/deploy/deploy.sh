@@ -14,11 +14,11 @@ else
     exit 0
 fi
 
-version=$("$_java" -version 2>&1 | awk -F '"' '/version/ {print $2}')
+version=$("$java_home" -version 2>&1 | awk -F '"' '/version/ {print $2}')
 echo jdk version "$version"
 
 base="${deploy.base}"
-name="demo"
+name=${demo}
 
 data_home="/opt/datas/"
 log_home="/opt/logs/resin"
@@ -62,7 +62,7 @@ do
     #process shell script
     ssh root@$host "mkdir -p ${bin_home}"
     scp *.sh root@$host:${bin_home}
-    ssh root@$host "rm -f ${bin_home}/run-deploy*.sh && chmod +x ${bin_home}/*.sh"
+    ssh root@$host "rm -f ${bin_home}/deploy*.sh && chmod +x ${bin_home}/*.sh"
     ssh root@$host "mv -f ${bin_home}/resin-$name.sh $shell"
     ssh root@$host "sed -i 's/##conf##/${conf//\//\\/}/' $shell"
     ssh root@$host "chown resin $shell"

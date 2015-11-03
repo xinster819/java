@@ -219,7 +219,6 @@
 				<directory>src/main/resources</directory>
 				<includes>
 					<include>**/*.properties</include>
-					<include>**/*.sh</include>
 				</includes>
 			</resource>
 		</resources>
@@ -256,6 +255,14 @@
 								<include>**/*</include>
 							</includes>
 						</resource>
+						<resource>
+							<directory>deploy</directory>
+							<targetPath>deploy</targetPath>
+							<filtering>true</filtering>
+							<includes>
+								<include>**/*</include>
+							</includes>
+						</resource>
 					</webResources>
 				</configuration>
 			</plugin>
@@ -273,6 +280,7 @@
 			</activation>
 			<properties>
 				<env>debug</env>
+				<version>123</version>
 			</properties>
 		</profile>
 		<profile>
@@ -286,6 +294,7 @@
 			</activation>
 			<properties>
 				<env>prod</env>
+				<name>demo</name>
 				<resin.server>10.11.157.130:8080</resin.server>
 			</properties>
 		</profile>
