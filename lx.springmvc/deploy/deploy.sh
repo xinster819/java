@@ -61,7 +61,7 @@ do
     #process shell script
     ssh root@$host "mkdir -p ${bin_home}"
     scp start.sh root@$host:${bin_home}
-    ssh root@$host "chmod +x ${bin_home}/$name/start.sh"
+    ssh root@$host "chmod +x ${bin_home}/start.sh"
     ssh root@$host "mv -f ${bin_home}/start.sh $shell"
     ssh root@$host "sed -i 's/##conf##/${conf//\//\\/}/' $shell"
     ssh root@$host "chown resin $shell"
@@ -69,7 +69,7 @@ do
     #process config file, maybe cause resin restart
     ssh root@$host "mkdir -p ${conf_home}"
     ssh root@$host "chown -R resin ${conf_home}"
-    scp *.xml resin@$host:${conf_home}
+    scp resin4.xml resin@$host:${conf_home}
     ssh resin@$host "mv -f ${conf_home}/resin4.xml $conf"
     ssh resin@$host "sed -i 's/##port##/$port/' $conf"
 
