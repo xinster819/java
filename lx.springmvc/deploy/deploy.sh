@@ -35,12 +35,16 @@ do
     data="${data.path}/$name/$port"
     deploy="${deploy.path}/${name}/$port"
     webapp="$deploy/webapp"
-    shell="${bin.path}/$name-$port.sh";
+    shell="${bin.path}/${name}-$port.sh";
+
+    ssh root@$host "mkdir -p ${bin.path}"
+    ssh root@$host "mkdir -p ${conf.path}"
+    ssh root@$host "mkdir -p $data"
+    ssh root@$host "mkdir -p $log"
+    ssh root@$host "mkdir -p $webapp"
 
     #create deploy dir
-    ssh root@$host "mkdir -p $data"
     ssh root@$host "chown -R resin $data"
-    ssh root@$host "mkdir -p $log"
     ssh root@$host "chown -R resin $log"
     
     #stop server
@@ -52,7 +56,6 @@ do
     done
     
     #process shell script
-    ssh root@$host "mkdir -p ${bin.path}"
     scp start.sh root@$host:${bin.path}
     ssh root@$host "chmod +x ${bin.path}/start.sh"
     ssh root@$host "mv -f ${bin.path}/start.sh $shell"
@@ -60,16 +63,13 @@ do
     ssh root@$host "chown resin $shell"
 
     #process config file, maybe cause resin restart
-    ssh root@$host "mkdir -p ${conf.path}"
     ssh root@$host "chown -R resin ${conf.path}"
     scp resin4.xml resin@$host:${conf.path}
     ssh resin@$host "mv -f ${conf.path}/resin4.xml $conf"
     ssh resin@$host "sed -i 's/##port##/$port/' $conf"
 
     #unpackage war
-    ssh root@$host "mkdir -p $webapp"
-    ssh root@$host "chown -R resin $deploy"
-    
+    ssh root@$host "chown -R resin $deploy"    
     scp ../../${name}.war resin@$host:$deploy
     ssh resin@$host "cd $webapp && rm -rf * && /opt/apps/jdk/bin/jar xf $deploy/${name}.war"
     ssh root@$host "cp $deploy/${name}.war $deploy/${name}-${serial_no}.war"
