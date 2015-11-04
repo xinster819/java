@@ -17,6 +17,8 @@ fi
 version=$("$java_home" -version 2>&1 | awk -F '"' '/version/ {print $2}')
 echo jdk version "$version"
 
+cd /opt/data/jenkins/jobs/springmvc/lastSuccessful/archive/lx.springmvc/target/
+
 servers=(${resin.server})
 
 #
@@ -70,7 +72,7 @@ do
 
     #unpackage war
     ssh root@$host "chown -R resin $deploy"    
-    scp ../../${name}.war resin@$host:$deploy
+    scp ${name}.war resin@$host:$deploy
     ssh resin@$host "cd $webapp && rm -rf * && /opt/apps/jdk/bin/jar xf $deploy/${name}.war"
     ssh root@$host "cp $deploy/${name}.war $deploy/${name}-${serial_no}.war"
     
