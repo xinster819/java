@@ -56,7 +56,7 @@
 
 	<!-- - Configures the main application cluster. Load-balancing configurations 
 		- will also have a web cluster. -->
-	<cluster id="${project.name}">
+	<cluster id="${name}">
 		<server-default>
 			<http address="*" port="##port##" />
 
@@ -133,7 +133,7 @@
 		<!-- the default host, matching any host name -->
 		<host id="" root-directory=".">
 			<!-- - webapps can be overridden/extended in the resin.xml -->
-			<web-app id="/" root-directory="/opt/cmt/demo/${name}/##port##/webapp" />
+			<web-app id="/" root-directory="${deploy.path}/${name}/##port##/webapp" />
 		</host>
 
 	</cluster>
