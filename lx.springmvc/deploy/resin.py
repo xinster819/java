@@ -1,6 +1,6 @@
 import sys,os;
 if len(sys.argv) == 1:
-  print 'need one command: start/stop/restart...';
+  print 'need one command: start/stop/restart..';
   sys.exit();
 cmd = sys.argv[1];
 if cmd == 'start':
