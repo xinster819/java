@@ -17,7 +17,7 @@
 
     <bean id="demoExceptionResolver" class="springmvc.exception.DemoExceptionResolver">
         <property name="order" value="1" />
-        <property name="defaultStatusCode" value="202" />
+        <property name="defaultStatusCode" value="404" />
     </bean>
     <bean id="defaultHandlerExceptionResolver"
         class="org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver"></bean>

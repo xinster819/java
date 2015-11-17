@@ -35,10 +35,14 @@ public class DemoExceptionResolver extends SimpleMappingExceptionResolver {
             // HTTP CODE 404, do something
             LOGGER.info("http_code: {}, msg: {}", 404, ex.getMessage());
         }
-        ModelAndView mv = new ModelAndView();
-        mv.addObject("msg", ex);
-        mv.setViewName("error");
-        return mv;
+        // debug mode
+        if ("true".equals(request.getParameter("debug"))) {
+            ModelAndView mv = new ModelAndView();
+            mv.addObject("msg", ex);
+            mv.setViewName("error");
+            return mv;
+        }
+        return super.doResolveException(request, response, handler, ex);
     }
 
     @ExceptionHandler(Exception.class)

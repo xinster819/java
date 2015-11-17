@@ -1,13 +1,15 @@
 <html>
 <head>
+<title>这个是调试用的</title>
 </head>
 <body>
+$msg
 #foreach ($i in [1..3])
    #if($msg.Cause)
            #set($msg = $msg.Cause)
            #foreach($stack in $msg.getStackTrace())
     	       $stack.toString()
-           #end     
+           #end
     #end
 #end
 </body>
