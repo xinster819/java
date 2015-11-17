@@ -6,24 +6,44 @@
     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
     
      <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig"></bean>
-    
-    <bean id="shardedJedisPool" class="redis.clients.jedis.ShardedJedisPool"  scope="singleton">
-        <constructor-arg index="0" ref="jedisPoolConfig" />
-        <constructor-arg index="1">
-            <list>
-                <bean class="redis.clients.jedis.JedisShardInfo">
-                    <constructor-arg name="host" value="10.10.91.118" />
-                    <constructor-arg name="port" value="6381" />
-                    <constructor-arg name="timeout" value="2000" />
-                </bean>
-                <bean class="redis.clients.jedis.JedisShardInfo">
-                    <constructor-arg name="host" value="10.10.91.119" />
-                    <constructor-arg name="port" value="6381" />
-                    <constructor-arg name="timeout" value="2000" />
-                </bean>
-            </list>
-        </constructor-arg>
- </bean>
+     
+     <bean id="jedisCluster" class="redis.clients.jedis.JedisCluster">
+     	<constructor-arg>
+     		<set>
+     			<bean class="redis.clients.jedis.HostAndPort">
+     				<constructor-arg index="0" value="10.11.157.130" />
+     				<constructor-arg index="1" value="6380" />
+     			</bean>
+     			<bean class="redis.clients.jedis.HostAndPort">
+     				<constructor-arg index="0" value="10.11.157.130" />
+     				<constructor-arg index="1" value="6381" />
+     			</bean>
+     			<bean class="redis.clients.jedis.HostAndPort">
+     				<constructor-arg index="0" value="10.11.157.130" />
+     				<constructor-arg index="1" value="6382" />
+     			</bean>
+     		</set>
+     	</constructor-arg>
+     </bean>
+
+<!-- 	<bean id="shardedJedisPool" class="redis.clients.jedis.ShardedJedisPool" -->
+<!-- 		scope="singleton"> -->
+<!-- 		<constructor-arg index="0" ref="jedisPoolConfig" /> -->
+<!-- 		<constructor-arg index="1"> -->
+<!-- 			<list> -->
+<!-- 				<bean class="redis.clients.jedis.JedisShardInfo"> -->
+<!-- 					<constructor-arg name="host" value="10.10.91.118" /> -->
+<!-- 					<constructor-arg name="port" value="6381" /> -->
+<!-- 					<constructor-arg name="timeout" value="2000" /> -->
+<!-- 				</bean> -->
+<!-- 				<bean class="redis.clients.jedis.JedisShardInfo"> -->
+<!-- 					<constructor-arg name="host" value="10.10.91.119" /> -->
+<!-- 					<constructor-arg name="port" value="6381" /> -->
+<!-- 					<constructor-arg name="timeout" value="2000" /> -->
+<!-- 				</bean> -->
+<!-- 			</list> -->
+<!-- 		</constructor-arg> -->
+<!-- 	</bean> -->
     
     
 </beans>
