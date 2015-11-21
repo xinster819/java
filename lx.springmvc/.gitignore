@@ -1,9 +1,23 @@
-target
-.classpath
+# Eclipse project files
 .project
+.classpath
 .settings
+bin/
+
+# IntelliJ IDEA project files and directories
 *.iml
-.idea
-.mymetadata
-.metadata
-RemoteSystemsTempFiles
+*.ipr
+*.iws
+# Build targets
+/target
+*/target
+
+# Report directories
+/reports
+*/reports
+
+# Mac-specific directory that no other operating system needs.
+.DS_Store
+
+# JVM crash logs
+hs_err_pid*.log
