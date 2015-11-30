@@ -140,9 +140,26 @@
 		</dependency>
 		<dependency>
 			<groupId>com.google.http-client</groupId>
+			<artifactId>google-http-client-jackson2</artifactId>
+			<version>1.19.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.http-client</groupId>
 			<artifactId>google-http-client-test</artifactId>
 			<version>1.19.0</version>
 		</dependency>
+		<dependency>
+			<groupId>com.google.http-client</groupId>
+			<artifactId>google-http-client-jackson</artifactId>
+			<version>1.19.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.auth</groupId>
+			<artifactId>google-auth-library-oauth2-http</artifactId>
+			<version>0.3.1</version>
+		</dependency>
+
+
 
 		<dependency>
 			<groupId>com.google.guava</groupId>
@@ -212,6 +229,11 @@
 			<version>4.0.29.Final</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.7</version>
+		</dependency>
 
 	</dependencies>
 	<build>

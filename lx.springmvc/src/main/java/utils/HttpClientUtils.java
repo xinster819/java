@@ -12,11 +12,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.api.client.http.GenericUrl;
+import com.google.api.client.http.HttpHeaders;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestFactory;
 import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpResponseException;
+import com.google.api.client.http.UrlEncodedContent;
 import com.google.api.client.http.javanet.NetHttpTransport;
 
 public class HttpClientUtils {
@@ -30,10 +32,40 @@ public class HttpClientUtils {
             request.setNumberOfRetries(1);
             request.setFollowRedirects(true);
             request.setLoggingEnabled(false);
+            request.setSuppressUserAgentSuffix(false);
         }
     });
 
-    public static String getHtml(String url, Map<String, String> params) {
+    public static HttpResponse post(String url, Map<String, String> param, Map<String, String> _headers) {
+        UrlEncodedContent hc = new UrlEncodedContent(param);
+        try {
+            HttpRequest req = HRF.buildPostRequest(new GenericUrl(url), hc);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType("application/x-www-form-urlencoded; charset=UTF-8");
+            headers.setUserAgent(
+                    "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.86 Safari/537.36");
+            for (Entry<String, String> _header : _headers.entrySet()) {
+                headers.put(_header.getKey(), _header.getValue());
+            }
+            req.setHeaders(headers);
+            return req.execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static void printInformation(HttpResponse resp) {
+        HttpHeaders headers = resp.getHeaders();
+        for (String key : headers.keySet()) {
+            System.out.println(key + " -- " + headers.get(key));
+        }
+        String cookie = resp.getHeaders().getCookie();
+        System.out.println(resp.getStatusCode());
+        System.out.println(cookie);
+    }
+
+    public static String getHtml(String url, Map<String, String> params, Object cookie) {
         HttpRequest req;
         try {
             GenericUrl u = new GenericUrl(url);
@@ -41,6 +73,9 @@ public class HttpClientUtils {
                 u.set(param.getKey(), param.getValue());
             }
             req = HRF.buildGetRequest(u);
+            HttpHeaders header = new HttpHeaders();
+            header.setCookie(cookie.toString());
+            req.setHeaders(header);
             HttpResponse resp = req.execute();
             InputStream content = resp.getContent();
             if (content == null) {
@@ -84,6 +119,7 @@ public class HttpClientUtils {
             if (resp == null) {
                 return null;
             }
+            printInformation(resp);
             in = resp.getContent();
             BufferedInputStream bis = new BufferedInputStream(in);
             String charset = resp.getContentCharset().name();
