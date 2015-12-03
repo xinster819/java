@@ -318,15 +318,12 @@
 			<properties>
 				<env>sohu</env>
                 <name>login</name>
-				<db.jdbc.driverClassName>com.mysql.jdbc.Driver</db.jdbc.driverClassName>
-				<db.username>cmt</db.username>
-				<db.password>cmt</db.password>
-				<db.url>jdbc:mysql://10.10.85.62:3306/cyanstat</db.url>
-				<db.initial.size>2</db.initial.size>
-				<db.max.active>8</db.max.active>
-				<db.min.idle>0</db.min.idle>
-				<db.max.idle>2</db.max.idle>
-				<db.max.wait>-1</db.max.wait>
+                <resin.server>10.11.157.130:8088</resin.server>
+                <bin.path>/opt/bin/resin</bin.path>
+                <conf.path>/opt/conf/resin</conf.path>
+                <data.path>/opt/data</data.path>
+                <deploy.path>/opt/deploy/resin</deploy.path>
+                <log.path>/opt/logs/resin</log.path>
 			</properties>
 		</profile>
 		<profile>
