@@ -16,11 +16,6 @@ public class GodJob implements InitializingBean {
         ShadowSocks.singIn();
     }
 
-    @Scheduled(cron = "* * * * * ?")
-    public void test() {
-        System.out.println("test");
-    }
-    
     @Override
     public void afterPropertiesSet() throws Exception {
     }

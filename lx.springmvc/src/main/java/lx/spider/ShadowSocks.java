@@ -51,13 +51,8 @@ public class ShadowSocks {
                 sb.append(one.getName()).append("=").append(one.getValue()).append(";");
             }
             String html = HttpClientUtils.getHtml(site + "/user/_checkin.php", new HashMap<String, String>(), sb);
-            System.out.println(html);
             LOGGER.info("sign . result: {}", html);
         }
-    }
-
-    public static void main(String[] args) {
-        singIn();
     }
     
     public static String getDomainName(String url) {
