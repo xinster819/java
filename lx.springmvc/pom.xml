@@ -158,9 +158,6 @@
 			<artifactId>google-auth-library-oauth2-http</artifactId>
 			<version>0.3.1</version>
 		</dependency>
-
-
-
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
@@ -320,6 +317,7 @@
 			</activation>
 			<properties>
 				<env>sohu</env>
+                <name>login</name>
 				<db.jdbc.driverClassName>com.mysql.jdbc.Driver</db.jdbc.driverClassName>
 				<db.username>cmt</db.username>
 				<db.password>cmt</db.password>
