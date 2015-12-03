@@ -17,11 +17,7 @@ fi
 version=$("$java_home" -version 2>&1 | awk -F '"' '/version/ {print $2}')
 echo jdk version "$version"
 
-cd /opt/data/jenkins/jobs/springmvc/lastSuccessful/archive/lx.springmvc/target/
-
 servers=(${resin.server})
-
-#
 serverCount=${#servers[@]}
 serial_no=`date +%s`
 i=0
@@ -50,9 +46,9 @@ do
     ssh root@$host "chown -R resin $log"
     
     #stop server
-    ssh root@$host "$shell stop" || echo "$shell is not running"
     while [ `ssh resin@$host "ps -ef | grep $conf | grep -v grep | wc -l"` -gt 0 ]
     do
+        ssh root@$host "$shell stop" || echo "$shell is not running"
         echo "waiting for $shell resin stop"
         sleep 1
     done
@@ -77,10 +73,10 @@ do
     ssh root@$host "cp $deploy/${name}.war $deploy/${name}-${serial_no}.war"
     
     #create soft link for data resources
-    ssh resin@$host "rm -f ${data.path}/${name}/js && ln -s $webapp/js ${data.path}/${name}/js"
-    ssh resin@$host "rm -f ${data.path}/${name}/css && ln -s $webapp/css ${data.path}/${name}/css"
-    ssh resin@$host "rm -f ${data.path}/${name}/img && ln -s $webapp/img ${data.path}/${name}/img"
-    ssh resin@$host "rm -f ${data.path}/${name}/sample && ln -s $webapp/sample ${data.path}/${name}/sample"
+    #ssh resin@$host "rm -f ${data.path}/${name}/js && ln -s $webapp/js ${data.path}/${name}/js"
+    #ssh resin@$host "rm -f ${data.path}/${name}/css && ln -s $webapp/css ${data.path}/${name}/css"
+    #ssh resin@$host "rm -f ${data.path}/${name}/img && ln -s $webapp/img ${data.path}/${name}/img"
+    #ssh resin@$host "rm -f ${data.path}/${name}/sample && ln -s $webapp/sample ${data.path}/${name}/sample"
 
     ssh resin@$host "$shell start"
     
