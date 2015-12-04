@@ -54,7 +54,9 @@ public class ShadowSocks {
             LOGGER.info("sign . result: {}", html);
         }
     }
-    
+    public static void main(String[] args) {
+        singIn();
+    }
     public static String getDomainName(String url) {
         try {
             URI uri = new URI(url);
