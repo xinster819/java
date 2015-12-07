@@ -15,7 +15,7 @@ import org.bytedeco.javacpp.tesseract.TessBaseAPI;
 public class OCRUtil {
 
     final static String DATA_PATH = "others";
-    final static String LANGUAGE = "ENG";
+    final static String LANGUAGE = "chi_sim";
 
     public static String imageRead(String des) {
         return imageRead(des, LANGUAGE);
@@ -35,6 +35,7 @@ public class OCRUtil {
         // Get OCR result
         outText = TBA.GetUTF8Text();
         String result = outText.getString();
+        System.out.println(result);
         // Destroy used object and release memory
         TBA.End();
         outText.deallocate();
@@ -43,7 +44,7 @@ public class OCRUtil {
     }
 
     public static void main(String[] args) {
-        System.out.println(imageRead("others/testImage/vcode.jpg"));
+        System.out.println(imageRead("others/testImage/jgz.jpeg"));
         System.out.println(imageRead("others/testImage/test.png"));
     }
 }
