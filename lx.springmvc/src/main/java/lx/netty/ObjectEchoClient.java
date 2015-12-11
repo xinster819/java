@@ -28,6 +28,14 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.serialization.ClassResolvers;
 import io.netty.handler.codec.serialization.ObjectDecoder;
 import io.netty.handler.codec.serialization.ObjectEncoder;
+import io.netty.util.AttributeKey;
+
+import java.net.InetSocketAddress;
+import java.net.SocketAddress;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Modification of {@link EchoClient} which utilizes Java object serialization.
@@ -39,36 +47,61 @@ public final class ObjectEchoClient {
     static final int PORT = Integer.parseInt(System.getProperty("port", "8007"));
     static final int SIZE = Integer.parseInt(System.getProperty("size", "256"));
 
-    private boolean succ;
+    static List<ChannelFuture> actives = new ArrayList<ChannelFuture>();
+    static Map<Integer, ChannelFuture> brokens = new ConcurrentHashMap<Integer, ChannelFuture>();
 
-    public static void main(String[] args) {
-        EventLoopGroup group = new NioEventLoopGroup();
-        Bootstrap b = new Bootstrap();
-        ChannelFuture future = null;
-        b.group(group).channel(NioSocketChannel.class).option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 10000)
-                .option(ChannelOption.SO_KEEPALIVE, true).option(ChannelOption.TCP_NODELAY, true)
-                .handler(new ChannelInitializer<SocketChannel>() {
-                    @Override
-                    public void initChannel(SocketChannel ch) throws Exception {
-                        ChannelPipeline p = ch.pipeline();
-                        p.addLast(new ObjectEncoder(), new ObjectDecoder(ClassResolvers.cacheDisabled(null)),
-                                new ObjectEchoClientHandler());
-                    }
-                });
+    static MessageVo msg = new MessageVo();
+    static {
+        msg.setName("我是好人");
+    }
 
-        // Start the connection attempt.
-        try {
-            future = b.connect(HOST, PORT).channel().closeFuture().addListener(new LxChannelFutureListener(b)).sync();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+    public static void main(String[] args) throws InterruptedException {
+        List<SocketAddress> list = new ArrayList<SocketAddress>();
+        list.add(new InetSocketAddress(HOST, PORT));
+        for (int i = 0; i < list.size(); i++) {
+            SocketAddress one = list.get(i);
+            Bootstrap b = new Bootstrap();
+            EventLoopGroup group = new NioEventLoopGroup();
+            b.group(group).channel(NioSocketChannel.class).option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 10000)
+                    .option(ChannelOption.SO_KEEPALIVE, true).option(ChannelOption.TCP_NODELAY, true)
+                    .handler(new ChannelInitializer<SocketChannel>() {
+                        @Override
+                        public void initChannel(SocketChannel ch) throws Exception {
+                            ChannelPipeline p = ch.pipeline();
+                            p.addLast(new ObjectEncoder(), new ObjectDecoder(ClassResolvers.cacheDisabled(null)),
+                                    new ObjectEchoClientHandler());
+                        }
+                    });
+            AttributeKey<SocketAddress> key = AttributeKey.newInstance("socket");
+            b.attr(key, one);
+            ChannelFuture future = b.connect(one).channel().closeFuture().addListener(new CloseFutureListener(b));
+            Thread.sleep(3000);
+            if (future.channel().isRegistered() && future.channel().isActive()) {
+                actives.add(future);
+            } else {
+                brokens.put(i, future);
+            }
+        }
+        write();
+    }
+
+    public static void write() {
+        while (true) {
+            ChannelFuture write = actives.get(0).channel().writeAndFlush(msg);
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
     }
 
-    static class LxChannelFutureListener implements ChannelFutureListener {
+    static class CloseFutureListener implements ChannelFutureListener {
 
         private Bootstrap b;
 
-        public LxChannelFutureListener(Bootstrap b) {
+        public CloseFutureListener(Bootstrap b) {
             this.b = b;
         }
 
@@ -78,7 +111,7 @@ public final class ObjectEchoClient {
                 if (future.isSuccess()) {
                     System.out.println("我进来了 ");
                     try {
-                        b.connect(HOST, PORT).channel().closeFuture().addListener(new LxChannelFutureListener(b)).sync();
+                        b.connect(HOST, PORT).channel().closeFuture().addListener(new CloseFutureListener(b)).sync();
                     } catch (InterruptedException e1) {
                         e1.printStackTrace();
                     }

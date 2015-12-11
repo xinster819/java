@@ -15,8 +15,6 @@
  */
 package lx.netty;
 
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
@@ -37,19 +35,19 @@ public class ObjectEchoClientHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
-        MessageVo s = new MessageVo();
-        s.setName("client");
-        ChannelFuture future = ctx.writeAndFlush(s);
-        future.addListener(new ChannelFutureListener(){
-            @Override
-            public void operationComplete(ChannelFuture future) throws Exception {
-                if(future.isDone()) {
-                    System.out.println("Done");
-                }else {
-                    System.out.println("not Done");
-                }
-            }
-        });
+//        MessageVo s = new MessageVo();
+//        s.setName("client");
+//        ChannelFuture future = ctx.writeAndFlush(s);
+//        future.addListener(new ChannelFutureListener(){
+//            @Override
+//            public void operationComplete(ChannelFuture future) throws Exception {
+//                if(future.isDone()) {
+//                    System.out.println("Done");
+//                }else {
+//                    System.out.println("not Done");
+//                }
+//            }
+//        });
     }
 
     @Override
@@ -62,8 +60,6 @@ public class ObjectEchoClientHandler extends ChannelInboundHandlerAdapter {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            ((MessageVo) msg).setName("client");
-            ctx.writeAndFlush(msg);
         }
     }
 
