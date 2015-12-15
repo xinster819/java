@@ -24,6 +24,7 @@ public class ShadowSocks {
         SITES.add("http://www.ssd.la");
         SITES.add("http://camelidc.net");
         SITES.add("http://ss.noteofstudy.com");
+        SITES.add("http://haonanxiang.com");
     }
 
     public static void singIn() {
