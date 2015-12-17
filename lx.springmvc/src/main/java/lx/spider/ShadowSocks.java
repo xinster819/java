@@ -41,8 +41,8 @@ public class ShadowSocks {
             headers.put("Host", getDomainName(site));
             headers.put("Referer", site + "/user/login.php");
             StringBuilder sb = new StringBuilder();
-            HttpResponse post = HttpClientUtils.post(site + "/user/_login.php", params, headers);
             try {
+                HttpResponse post = HttpClientUtils.post(site + "/user/_login.php", params, headers);
                 @SuppressWarnings("unchecked")
                 List<String> cookies = (List<String>) post.getHeaders().get("set-cookie");
                 List<HttpCookie> list = new ArrayList<HttpCookie>();
@@ -56,7 +56,7 @@ public class ShadowSocks {
                 String html = HttpClientUtils.getHtml(site + "/user/_checkin.php", new HashMap<String, String>(), sb);
                 LOGGER.info("sign . result: {}", html);
             } catch (Exception e) {
-                LOGGER.error("sth wrong. site: {}", site, e);
+                LOGGER.error("sth wrong. site: {}", site);
             }
         }
     }

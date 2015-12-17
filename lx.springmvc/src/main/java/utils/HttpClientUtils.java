@@ -3,11 +3,23 @@ package utils;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLException;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLSocket;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.http.conn.ssl.X509HostnameVerifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,21 +32,52 @@ import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpResponseException;
 import com.google.api.client.http.UrlEncodedContent;
 import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport.Builder;
 
 public class HttpClientUtils {
 
     static Logger LOGGER = LoggerFactory.getLogger(HttpClientUtils.class);
 
-    static HttpRequestFactory HRF = new NetHttpTransport().createRequestFactory(new HttpRequestInitializer() {
-        public void initialize(HttpRequest request) throws IOException {
-            request.setConnectTimeout(4000);
-            request.setReadTimeout(10000);
-            request.setNumberOfRetries(1);
-            request.setFollowRedirects(true);
-            request.setLoggingEnabled(false);
-            request.setSuppressUserAgentSuffix(false);
+    static HttpRequestFactory HRF = null;
+
+    static {
+        try {
+            X509TrustManager tm = new X509TrustManager() {
+                @Override
+                public X509Certificate[] getAcceptedIssuers() {
+                    return null;
+                }
+
+                @Override
+                public void checkServerTrusted(X509Certificate[] ax509certificate, String s)
+                        throws CertificateException {
+                }
+
+                @Override
+                public void checkClientTrusted(X509Certificate[] ax509certificate, String s)
+                        throws CertificateException {
+                }
+            };
+            SSLContext ssl = SSLContext.getInstance("SSL");
+            ssl.init(null, new TrustManager[] { tm }, null);
+            Builder builder = new NetHttpTransport.Builder();
+            builder.setSslSocketFactory(ssl.getSocketFactory());
+            HRF = builder.build().createRequestFactory(new HttpRequestInitializer() {
+                public void initialize(HttpRequest request) throws IOException {
+                    request.setConnectTimeout(4000);
+                    request.setReadTimeout(10000);
+                    request.setNumberOfRetries(1);
+                    request.setFollowRedirects(true);
+                    request.setLoggingEnabled(false);
+                    request.setSuppressUserAgentSuffix(false);
+                }
+            });
+        } catch (NoSuchAlgorithmException e1) {
+            e1.printStackTrace();
+        } catch (KeyManagementException e) {
+            e.printStackTrace();
         }
-    });
+    }
 
     public static HttpResponse post(String url, Map<String, String> param, Map<String, String> _headers) {
         UrlEncodedContent hc = new UrlEncodedContent(param);
@@ -42,8 +85,7 @@ public class HttpClientUtils {
             HttpRequest req = HRF.buildPostRequest(new GenericUrl(url), hc);
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType("application/x-www-form-urlencoded; charset=UTF-8");
-            headers.setUserAgent(
-                    "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.86 Safari/537.36");
+            headers.setUserAgent("Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.86 Safari/537.36");
             for (Entry<String, String> _header : _headers.entrySet()) {
                 headers.put(_header.getKey(), _header.getValue());
             }
