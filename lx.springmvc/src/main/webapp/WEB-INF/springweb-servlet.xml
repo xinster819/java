@@ -57,4 +57,5 @@
         </property>
     </bean>
 
+    <bean id="tcpServer" class="lx.tcp.TcpServer"></bean>
 </beans>
