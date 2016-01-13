@@ -27,6 +27,12 @@
 			<version>3.03-rc1-0.11</version>
 		</dependency>
 
+        <dependency>
+            <groupId>com.google.code.maven-play-plugin.org.playframework</groupId>
+            <artifactId>jj-simplecaptcha</artifactId>
+            <version>1.1</version>
+        </dependency>
+
 		<dependency>
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
@@ -166,7 +172,7 @@
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-jdbc</artifactId>
-			<version>7.0.50</version>
+			<version>7.0.65</version>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>

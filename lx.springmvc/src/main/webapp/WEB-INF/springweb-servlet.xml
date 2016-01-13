@@ -7,7 +7,7 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
     <context:property-placeholder location="classpath:*properties/config.properties" />
-    <context:component-scan base-package="lx"></context:component-scan>
+    <context:component-scan base-package="lx,springmvc"></context:component-scan>
     <import resource="classpath:spring/app-*.xml" />
 
     <mvc:annotation-driven />
