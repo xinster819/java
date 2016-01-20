@@ -1,4 +1,4 @@
-package utils;
+package springmvc.utils;
 
 /**
  * 一些常用的验证正则表达式，例： 邮箱，手机，身份证。。。

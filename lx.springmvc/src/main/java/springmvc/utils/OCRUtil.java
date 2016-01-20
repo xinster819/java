@@ -1,4 +1,4 @@
-package utils;
+package springmvc.utils;
 
 import static org.bytedeco.javacpp.lept.pixDestroy;
 import static org.bytedeco.javacpp.lept.pixRead;

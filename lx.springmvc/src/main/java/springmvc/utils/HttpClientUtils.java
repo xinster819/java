@@ -1,4 +1,4 @@
-package utils;
+package springmvc.utils;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
