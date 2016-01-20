@@ -4,6 +4,7 @@ public class User {
 
     private long userId;
     private String nick;
+    private String email;
     private String portrait;
     private String password;
 
@@ -33,6 +34,14 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void setPassword(String password) {

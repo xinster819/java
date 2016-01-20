@@ -27,6 +27,7 @@ public class ShadowSocks {
         SITES.add("http://haonanxiang.com");
         SITES.add("https://free.5ivpn.cc");
         SITES.add("http://ss.hiczp.com");
+        SITES.add("http://qwq.lol/");
     }
 
     public static void singIn() {
