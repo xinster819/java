@@ -17,7 +17,15 @@ fi
 version=$("$java_home" -version 2>&1 | awk -F '"' '/version/ {print $2}')
 echo jdk version "$version"
 
+<<<<<<< HEAD
 servers=(${resin.server})
+=======
+#cd /opt/data/jenkins/workspace/flow/lx.springmvc/target
+
+servers=(${resin.server})
+
+#
+>>>>>>> shadow
 serverCount=${#servers[@]}
 serial_no=`date +%s`
 i=0
@@ -30,7 +38,11 @@ do
 
     log="${log.path}/${name}-$port"
     conf="${conf.path}/${name}-$port.xml"
+<<<<<<< HEAD
     data="${data.path}/$name/$port"
+=======
+    data="${data.path}/${name}/$port"
+>>>>>>> shadow
     deploy="${deploy.path}/${name}/$port"
     webapp="$deploy/webapp"
     shell="${bin.path}/${name}-$port.sh";
@@ -48,7 +60,11 @@ do
     #stop server
     while [ `ssh resin@$host "ps -ef | grep $conf | grep -v grep | wc -l"` -gt 0 ]
     do
+<<<<<<< HEAD
         ssh root@$host "$shell stop" || echo "$shell is not running"
+=======
+	    ssh root@$host "$shell stop"
+>>>>>>> shadow
         echo "waiting for $shell resin stop"
         sleep 1
     done
@@ -64,7 +80,11 @@ do
     ssh root@$host "chown -R resin ${conf.path}"
     scp ${name}/deploy/resin4.xml resin@$host:${conf.path}
     ssh resin@$host "mv -f ${conf.path}/resin4.xml $conf"
+<<<<<<< HEAD
     ssh resin@$host "sed -i 's/##port##/$port/' $conf"
+=======
+    ssh resin@$host "sed -i 's/##port##/$port/g' $conf"
+>>>>>>> shadow
 
     #unpackage war
     ssh root@$host "chown -R resin $deploy"    

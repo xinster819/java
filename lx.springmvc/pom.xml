@@ -15,6 +15,12 @@
 		<jedis>2.7.2</jedis>
 	</properties>
 	<dependencies>
+            
+       <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.10</version>
+        </dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -27,6 +33,12 @@
 			<artifactId>tesseract</artifactId>
 			<version>3.03-rc1-0.11</version>
 		</dependency>
+
+        <dependency>
+            <groupId>com.google.code.maven-play-plugin.org.playframework</groupId>
+            <artifactId>jj-simplecaptcha</artifactId>
+            <version>1.1</version>
+        </dependency>
 
 		<dependency>
 			<groupId>commons-fileupload</groupId>
@@ -135,10 +147,24 @@
 		</dependency>
 		<dependency>
 			<groupId>com.google.http-client</groupId>
+			<artifactId>google-http-client-jackson2</artifactId>
+			<version>1.19.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.http-client</groupId>
 			<artifactId>google-http-client-test</artifactId>
 			<version>1.19.0</version>
 		</dependency>
-
+		<dependency>
+			<groupId>com.google.http-client</groupId>
+			<artifactId>google-http-client-jackson</artifactId>
+			<version>1.19.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.auth</groupId>
+			<artifactId>google-auth-library-oauth2-http</artifactId>
+			<version>0.3.1</version>
+		</dependency>
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
@@ -147,7 +173,7 @@
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-jdbc</artifactId>
-			<version>7.0.50</version>
+			<version>7.0.65</version>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
@@ -199,6 +225,13 @@
 			<artifactId>commons-pool2</artifactId>
 			<version>2.4.1</version>
 		</dependency>
+
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.7</version>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<finalName>springmvc</finalName>
@@ -275,8 +308,14 @@
 				</property>
 			</activation>
 			<properties>
-				<env>debug</env>
-				<version>123</version>
+				<env>sohu</env>
+                <name>login</name>
+                <resin.server>10.11.157.130:8088</resin.server>
+                <bin.path>/opt/bin/resin</bin.path>
+                <conf.path>/opt/conf/resin</conf.path>
+                <data.path>/opt/data</data.path>
+                <deploy.path>/opt/deploy/resin</deploy.path>
+                <log.path>/opt/logs/resin</log.path>
 			</properties>
 		</profile>
 		<profile>
