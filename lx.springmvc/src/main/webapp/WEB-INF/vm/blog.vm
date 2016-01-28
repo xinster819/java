@@ -1,0 +1,111 @@
+<html>
+<head>
+<style>
+    a {
+        text-decoration: none;
+    }
+    ul, li {
+        list-style: none;
+    }
+    h1 {
+        font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+        font-weight: 400;
+    }
+    .margin-auto {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .nav {
+        position: absolute;
+        top: 0;
+        height: 50px;
+        width: 100%;
+        background-color: #fff;
+        border-color: #e7e7e7;
+    }
+    .container {
+        width: 1130px;
+        min-width: 1100px;
+        padding: 15px 15px;
+    }
+    .nav .container #brand {
+        color: #777;
+        font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 20px;
+    }
+    .main {
+        margin-top: 50px;
+    }
+    .main .self {
+        height: 400px;
+        width: 100%;
+        background-color: #b84d45;
+        overflow: hidden;
+    }
+    .main .self .content {
+        height: 400px;
+        width: 1160px;
+        background-color: #b84d45;
+        padding-top: 10px;
+        color: #fff;
+        font-size: 43px;
+    }
+    .contents {
+        width: 860px;
+        min-width: 800px;
+    }
+    .contents li {
+        padding: 10px;
+        height: 100px;
+    }
+    .little_blocks {
+        width: 60px;
+        height: 100px;
+        margin-right: 2px;
+        padding: 5px 5px;
+        text-align: center;
+        font-weight: 300;
+        color: #777;
+    }
+    .little_blocks .mini-counts {
+        font-size: 17px;
+        margin-bottom: 4px;
+    }
+</style>
+
+</head>
+<body>
+    <nav class="nav">
+        <div class="container margin-auto">
+            <a href=""><span id="brand" >上帝的家</span></a>
+        </div>
+    </nav>
+    <div class="main">
+        <div class="self">
+            <div class="content margin-auto">
+                <h1>上帝你好</h1>
+            </div>
+        </div>
+        <div class="contents margin-auto">
+            <ul>
+                <li>
+                    <div class="views little_blocks">
+                        <div class="mini-counts"><span>22</span></div>
+                        <div>访问数</div>
+                    </div>
+                    <div class="content">
+                        <div class="content-title"><span>上帝在哪里</span></div>
+                        <div class="content-body"></div>
+                    </div>
+                </li>
+                <li>标题2</li>
+                
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>

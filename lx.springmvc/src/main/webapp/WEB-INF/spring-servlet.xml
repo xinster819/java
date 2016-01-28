@@ -8,7 +8,9 @@
 
     <context:property-placeholder location="classpath:*properties/config.properties" />
     <context:component-scan base-package="springmvc"></context:component-scan>
-    <import resource="classpath:spring/app-*.xml" />
+    <import resource="classpath*:spring/app-*.xml" />
+    <context:property-placeholder location="classpath*:*.properties,classpath*:${env}-props/*.properties" />
+    <import resource="classpath*:spring/appcontext-*.xml" />
 
     <mvc:annotation-driven>
         <mvc:message-converters register-defaults="true">

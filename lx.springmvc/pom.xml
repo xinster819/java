@@ -15,7 +15,6 @@
 		<jedis>2.7.2</jedis>
 	</properties>
 	<dependencies>
-            
        <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>

@@ -1,4 +1,4 @@
-package utils;
+package springmvc.utils;
 
 import java.security.InvalidKeyException;
 import java.security.Key;

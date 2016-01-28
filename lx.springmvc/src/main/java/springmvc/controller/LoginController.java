@@ -1,9 +1,5 @@
 package springmvc.controller;
 
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,9 +13,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import springmvc.dao.UserDao;
 import springmvc.response.BaseResponse;
 import springmvc.response.ResponseStatus;
+import springmvc.utils.AES;
+import springmvc.utils.CookieUtils;
 import springmvc.vo.User;
-import utils.AES;
-import utils.CookieUtils;
 
 @Controller
 @RequestMapping("capcha")
