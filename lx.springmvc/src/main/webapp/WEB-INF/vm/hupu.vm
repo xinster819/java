@@ -133,7 +133,11 @@
                         transform: translateX(100%);
             }
             .iis-effect-slide.iis-direction-next .iis-previous-slide,
-            .iis-effect-slide.iis-direction-previous .iis-next-slide { opacity: 1; }
+            .iis-effect-slide.iis-direction-previous .iis-next-slide { 
+                opacity: 1; 
+                -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+                filter: alpha(opacity=100);
+            }
             /* Navigation */
             .iis-previous-nav,
             .iis-next-nav {
@@ -146,10 +150,13 @@
                 text-indent: -9999px;
                 background-repeat: no-repeat;
                 background-color: rgba(0,0,0,0.5);
+                -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#7F000000,endColorstr=#7F000000)"; /* IE8 */
+                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#7F000000,endColorstr=#7F000000) alpha(opacity=100);   /* IE6 & 7 */
                 border-radius: 50px;
                 background-size: 48px 48px;
                 cursor: pointer;
-                opacity: 0;
+                opacity: 1;
+                -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
                 -webkit-transform: translateY(-50%);
                     -ms-transform: translateY(-50%);
                         transform: translateY(-50%);
@@ -172,11 +179,22 @@
             .ideal-image-slider:hover .iis-next-nav { opacity: 0.5; }
             .ideal-image-slider:hover .iis-previous-nav:hover,
             .ideal-image-slider:hover .iis-next-nav:hover { opacity: 1.0; }
+            
+            
+            .shadow {
+                position: absolute;
+                filter: alpha(opacity=75);
+                opacity: .75;
+                z-index: 1100;
+                background: #fff;
+                left: 0;
+                top: 0;
+            }
         </style>
     </head>
     <body>
         <div class="nav">
-            nav
+            <input type="button" id="shadow_btn;"  value="遮罩" />
         </div>
         <div class="main">
             <div class="col1 cols">
@@ -187,7 +205,7 @@
             </div>
             <div class="col2 cols">
                 <div class="main-news">
-                                        <div id="slider">
+                    <div id="slider">
                        <a href="http://www.baidu.com" target="_blank"><img src="/img/god0.jpg"></a>
                        <a href="http://www.qq.com" target="_blank"><img src="/img/god1.jpg"></a>
                        <a href="http://www.sohu.com" target="_blank"><img src="/img/god2.jpg"></a>
@@ -199,9 +217,12 @@
             </div>
             <div class="col3 cols"></div>
         </div>
+        <div class="shadow"></div>
         <script>
             var slider = new IdealImageSlider.Slider('#slider');
             // slider.start();
+            $(".shadow").css("height", window.innerHeight);
+            $(".shadow").css("width", window.innerWidth);
         </script>
     </body>
 </html>

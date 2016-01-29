@@ -35,7 +35,8 @@ var IdealImageSlider = (function() {
 	var _loadImg = function(slide, callback) {
 		if (!slide.style.backgroundImage) {
 			slide.style.backgroundImage = 'url(' + slide.getAttribute('data-src') + ')';
-			console.log(slide.getAttribute('data-src'));
+			$(slide).css("filter", "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='" + slide.getAttribute('data-src') + "',sizingMethod='scale')");
+			$(slide).css("-ms-filter", "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='" + slide.getAttribute('data-src') + "',sizingMethod='scale')");
 			if (typeof(callback) === 'function') callback(this);
 		}
 	};
