@@ -1,0 +1,48 @@
+@CHARSET "UTF-8";
+ #slider {
+     max-width: 900px;
+     height: 100%;
+     overflow: hidden;
+     position: relative;
+ }
+ .simple-slider-slide {
+     position: absolute;
+     opacity: 0;
+     -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+     filter: alpha(opacity=0);
+     -webkit-transition-property: -webkit-transform;
+        -moz-transition-property: -moz-transform;
+          -o-transition-property: -o-transform;
+             transition-property: transform;
+     -webkit-transition-timing-function: ease-out;
+        -moz-transition-timing-function: ease-out;
+          -o-transition-timing-function: ease-out;
+             transition-timing-function: ease-out;
+     -webkit-transform: translateX(0%);
+         -ms-transform: translateX(0%);
+             transform: translateX(0%);
+      -webkit-transition-duration: 3000ms;
+         -moz-transition-duration: 3000ms;
+              transition-duration: 3000ms;
+ }
+ .simple-slider-cur-slide {
+     opacity: 1;
+     -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+     filter: alpha(opacity=100);
+     z-index: 1;
+ }
+ .simple-slider-pre-slide {
+     -webkit-transform: translateX(-100%);
+         -ms-transform: translateX(-100%);
+             transform: translateX(-100%);
+ }
+ .simple-slider-next-slide {
+     -webkit-transform: translateX(100%);
+         -ms-transform: translateX(100%);
+             transform: translateX(100%);
+ }
+ .simple-direction {
+     opacity: 1;
+     -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+     filter: alpha(opacity=100);
+ }
