@@ -5,7 +5,7 @@
         <script src="../../js/utils/slider/slider.js"></script>
         <link rel="stylesheet" href="../../js/utils/slider/slider.css" type="text/css" />
         <style>
-            ul, li {
+            ul, li, h4 {
                 margin: 0;
                 padding: 0;
             }
@@ -32,19 +32,29 @@
             .col1 {
                 width: 25%;
             }
-            .banner {
-                width: 100%;
-                height: 200px;
-                border: 1px;
-                border-color: red;
-                border-style: double;
-            }
             .banner, .hupu-made {
                 width: 100%;
                 height: 200px;
                 border: 1px;
                 border-color: red;
                 border-style: double;
+            }
+            .hupu-made .hupu-made-list {
+                display: inline-block;
+                width: 100%;
+                height: 80px;
+                margin-top: 15px;
+                margin-left: 15px;
+            }
+            .hupu-made .hupu-made-list img {
+                float: left;
+                width: 70px;
+                height:70px;
+            }
+            .hupu-made .hupu-made-detail {
+                float: left;
+                width: 200px;
+                margin-left: 20px;
             }
             .teams-news {
                 width: 100%;
@@ -116,7 +126,6 @@
             .ideal-image-slider:hover .iis-previous-nav:hover,
             .ideal-image-slider:hover .iis-next-nav:hover { opacity: 1.0; }
             
-            
             .shadow {
                 position: absolute;
                 filter: alpha(opacity=75);
@@ -135,17 +144,32 @@
         <div class="main">
             <div class="col1 cols">
                 <div class="banner">
-                </div>
-                <div class="hupu-made"></div>
-                <div class="teams-news"></div>
-            </div>
-            <div class="col2 cols">
-                <div class="main-news">
                     <div id="slider">
                        <a href="http://www.baidu.com" target="_blank"><img src="/img/god0.jpg"></a>
                        <a href="http://www.qq.com" target="_blank"><img src="/img/god1.jpg"></a>
                        <a href="http://www.sohu.com" target="_blank"><img src="/img/god2.jpg"></a>
                     </div>
+                </div>
+                <div class="hupu-made">
+                    <div class="hupu-made-list">
+                        <img src="/img/god0.jpg" />
+                        <div class="hupu-made-detail">
+                            <h4><span style="color: red">一年之后</span></h4>
+                                                    休赛期那几个月，“每次离开球馆都感觉要练吐了。”
+                        </div>
+                    </div>
+                    <div class="hupu-made-list">
+                        <img src="/img/god0.jpg" />
+                        <div class="hupu-made-detail">
+                            <h4><span style="color: red">一年之后</span></h4>
+                                                    休赛期那几个月，“每次离开球馆都感觉要练吐了。”
+                        </div>
+                    </div>
+                </div>
+                <div class="teams-news"></div>
+            </div>
+            <div class="col2 cols">
+                <div class="main-news">
                 </div>
                 <div class="hot-news"></div>
                 <div class="rank-news"></div>
