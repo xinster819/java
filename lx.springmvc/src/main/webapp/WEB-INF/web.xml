@@ -39,10 +39,17 @@
         <servlet-name>spring</servlet-name>
         <url-pattern>/api/*</url-pattern>
     </servlet-mapping>
+    
     <error-page>
     	<error-code>404</error-code>
     	<location>/404.html</location>
     	<error-code>500</error-code>
     	<location>/500.html</location>
     </error-page>
+    
+    <welcome-file-list>
+        <welcome-file>
+            /404.html
+        </welcome-file>
+    </welcome-file-list>
 </web-app>

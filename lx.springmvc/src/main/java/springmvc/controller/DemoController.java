@@ -32,18 +32,6 @@ public class DemoController {
     @RequestMapping("jedis")
     @ResponseBody
     public String jedis() {
-        // int i = 0;
-        // while (i < 1000000000) {
-        // jedisCluster.set(String.valueOf(i), String.valueOf(i));
-        // i++;
-        // try {
-        // Thread.sleep(10);
-        // } catch (InterruptedException e) {
-        // // TODO Auto-generated catch block
-        // e.printStackTrace();
-        // }
-        // System.out.println(i);
-        // }
         return "ok";
     }
 }
