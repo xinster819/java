@@ -1,9 +1,5 @@
 package springmvc.controller;
 
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
