@@ -26,7 +26,7 @@ public class LoginController {
 
     @RequestMapping(value = "login", method = { RequestMethod.GET, RequestMethod.POST })
     public String login(@RequestParam("user_id") int userId, @RequestParam("pwd") String pwd) {
-        User user = userDao.byUserId(userId);
+        User user = userDao.byId(userId);
         if (user == null) {
             return "capcha";
         }

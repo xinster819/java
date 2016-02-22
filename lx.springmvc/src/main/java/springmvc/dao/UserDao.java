@@ -10,16 +10,32 @@ import springmvc.dao.mapper.UserMapper;
 import springmvc.vo.User;
 
 @Repository
-public class UserDao {
+public class UserDao implements BaseDao<User> {
 
     static Logger LOGGER = LoggerFactory.getLogger(UserDao.class);
 
     @Resource
     private UserMapper userMapper;
 
-    public User byUserId(int userId) {
+    @Override
+    public boolean insert(User user) {
+        return userMapper.insert(user);
+    }
+
+    @Override
+    public boolean update(User one) {
+        return false;
+    }
+
+    @Override
+    public boolean delete(User one) {
+        return false;
+    }
+
+    @Override
+    public User byId(long id) {
         try {
-            return userMapper.byUserId(userId);
+            return userMapper.byUserId((int) id);
         } catch (Exception e) {
             LOGGER.error("failed", e);
         }

@@ -1,5 +1,6 @@
 package springmvc.dao.mapper;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
@@ -23,4 +24,7 @@ public interface UserMapper {
             @Result(column = "portrait", property = "portrait"),//
             @Result(column = "password", property = "password") })
     public User byEmail(String email);
+
+    @Insert("insert into user (nick, email, portrait, password) values (#{nick}, #{email}, #{portrait}, #{password})")
+    public boolean insert(User user);
 }
