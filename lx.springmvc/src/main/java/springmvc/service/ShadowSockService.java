@@ -1,77 +1,79 @@
-package lx.spider;
+package springmvc.service;
 
 import java.net.HttpCookie;
-import java.net.URI;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import utils.HttpClientUtils;
+import org.springframework.stereotype.Service;
 
 import com.google.api.client.http.HttpResponse;
 
-public class ShadowSocks {
+import springmvc.dao.ShadowSockDao;
+import springmvc.vo.ShadowSock;
+import utils.HtmlUtils;
+import utils.HttpClientUtils;
 
-    static Logger LOGGER = LoggerFactory.getLogger(ShadowSocks.class);
+@Service
+public class ShadowSockService {
 
-    public static List<String> SITES = new ArrayList<String>();
+    static Logger LOGGER = LoggerFactory.getLogger(ShadowSockService.class);
 
-    static {
-        // SITES.add("http://www.pilivpn.com/");
-        SITES.add("https://ss.kalone.net");
+    @Resource
+    ShadowSockDao shadowSockDao;
+
+    public List<ShadowSock> all() {
+        try {
+            return shadowSockDao.all();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
     }
 
-    public static void singIn() {
-        // System.setProperty("http.proxyHost", "localhost");
-        // System.setProperty("http.proxyPort", "8888");
-        for (String site : SITES) {
+    public void checkin() {
+        List<ShadowSock> list = shadowSockDao.all();
+        for (ShadowSock one : list) {
             Map<String, String> params = new HashMap<String, String>();
             params.put("email", "540818255@qq.com");
             params.put("passwd", "123456789");
             params.put("remember_me", "week");
             Map<String, String> headers = new HashMap<String, String>();
-            headers.put("Origin", site);
-            headers.put("Host", getDomainName(site));
-            headers.put("Referer", site + "/user/login.php");
+            headers.put("Origin", one.getUrl());
+            headers.put("Host", HtmlUtils.getDomainName(one.getUrl()));
+            headers.put("Referer", one.getUrl() + "/user/login.php");
             StringBuilder sb = new StringBuilder();
             try {
-                HttpResponse post = HttpClientUtils.post(site + "/auth/login", params, headers, "");
-
+                HttpResponse post = HttpClientUtils.post(one.getUrl() + one.getLoginUri(), params, headers, "");
                 @SuppressWarnings("unchecked")
-                List<String> cookies = (List<String>) post.getHeaders().get("set-cookie");
-                List<HttpCookie> list = new ArrayList<HttpCookie>();
-                for (String cookie : cookies) {
-                    List<HttpCookie> parse = HttpCookie.parse(cookie.toString());
-                    list.addAll(parse);
+                List<String> _cookies = (List<String>) post.getHeaders().get("set-cookie");
+                List<HttpCookie> cookies = new ArrayList<HttpCookie>();
+                for (String _cookie : _cookies) {
+                    List<HttpCookie> parse = HttpCookie.parse(_cookie.toString());
+                    cookies.addAll(parse);
                 }
-                for (HttpCookie one : list) {
-                    sb.append(one.getName()).append("=").append(one.getValue()).append(";");
+                for (HttpCookie cookie : cookies) {
+                    sb.append(cookie.getName()).append("=").append(cookie.getValue()).append(";");
                 }
-                String html = HttpClientUtils.getHtml(site + "/user/_checkin.php", new HashMap<String, String>(), sb);
+                String html = HttpClientUtils.postAsString(one.getUrl() + one.getCheckInUri(),
+                        new HashMap<String, String>(), new HashMap<String, String>(), sb);
+                one.setStatus(ShadowSock.ON);
+                one.setCheckInTime(new Date());
+                shadowSockDao.checkIn(one);
                 LOGGER.info("sign . result: {}", unicodeToChinese(html));
             } catch (Exception e) {
-                LOGGER.error("sth wrong. site: {}", site, e);
+                LOGGER.error("sth wrong. site: {}", one.getUrl(), e);
+                one.setStatus(ShadowSock.ERROR);
+                one.setCheckInTime(new Date());
+                shadowSockDao.checkIn(one);
             }
         }
-    }
-
-    public static void main(String[] args) {
-        singIn();
-    }
-
-    public static String getDomainName(String url) {
-        try {
-            URI uri = new URI(url);
-            String domain = uri.getHost();
-            return domain.startsWith("www.") ? domain.substring(4) : domain;
-        } catch (Exception e) {
-            LOGGER.error("get domain error. url: {}", url);
-        }
-        return "";
     }
 
     public static String unicodeToChinese(String str) {
@@ -104,4 +106,5 @@ public class ShadowSocks {
         }
         return sb.toString();
     }
+
 }

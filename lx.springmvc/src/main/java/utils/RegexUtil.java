@@ -1,7 +1,5 @@
 package utils;
 
-import lx.vo.God;
-
 /**
  * 一些常用的验证正则表达式，例： 邮箱，手机，身份证。。。
  * 
@@ -14,9 +12,9 @@ public class RegexUtil {
     final static String IDENTITY_CARD_REGEX = "(^[0-9]{15}$)|(^[0-9]{17}([0-9]|X)$)";
 
     final static String EMAIL_REGEX = "^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$";
-    
+
     final static String SPECHARS_REGEX = "[^a-zA-Z0-9]";
-    
+
     public static boolean mobileMatch(String input) {
         return input.matches(MOBILE_REGEX);
     }
@@ -31,10 +29,5 @@ public class RegexUtil {
 
     public static String specharsReplace(String input) {
         return input.replaceAll(SPECHARS_REGEX, "");
-    }
-
-    public static void main(String[] args) {
-        God  god = new God(123);
-        god.print();
     }
 }

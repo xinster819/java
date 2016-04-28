@@ -11,15 +11,11 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLException;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.SSLSocket;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.http.conn.ssl.X509HostnameVerifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -79,13 +75,16 @@ public class HttpClientUtils {
         }
     }
 
-    public static HttpResponse post(String url, Map<String, String> param, Map<String, String> _headers) {
+    public static HttpResponse post(String url, Map<String, String> param, Map<String, String> _headers,
+            Object cookie) {
         UrlEncodedContent hc = new UrlEncodedContent(param);
         try {
             HttpRequest req = HRF.buildPostRequest(new GenericUrl(url), hc);
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType("application/x-www-form-urlencoded; charset=UTF-8");
-            headers.setUserAgent("Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.86 Safari/537.36");
+            headers.setUserAgent(
+                    "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.86 Safari/537.36");
+            headers.setCookie(cookie.toString());
             for (Entry<String, String> _header : _headers.entrySet()) {
                 headers.put(_header.getKey(), _header.getValue());
             }
@@ -97,14 +96,23 @@ public class HttpClientUtils {
         return null;
     }
 
-    public static void printInformation(HttpResponse resp) {
-        HttpHeaders headers = resp.getHeaders();
-        for (String key : headers.keySet()) {
-            System.out.println(key + " -- " + headers.get(key));
+    public static String postAsString(String url, Map<String, String> param, Map<String, String> _headers, Object cookie) {
+        try {
+            HttpResponse resp = post(url, param, _headers, cookie);
+            InputStream content = resp.getContent();
+            if (content == null) {
+                return null;
+            }
+            BufferedInputStream bis = new BufferedInputStream(content);
+            String charset = resp.getContentCharset().name();
+            if (StringUtils.isEmpty(charset) || "ISO-8859-1".equals(charset)) {
+                charset = HtmlUtils.detect(bis);
+            }
+            return IOUtils.toString(bis, charset);
+        } catch (IOException e) {
+            LOGGER.error("get html from failed. url: {} reason: {}", url, e);
         }
-        String cookie = resp.getHeaders().getCookie();
-        System.out.println(resp.getStatusCode());
-        System.out.println(cookie);
+        return null;
     }
 
     public static String getHtml(String url, Map<String, String> params, Object cookie) {
@@ -161,7 +169,6 @@ public class HttpClientUtils {
             if (resp == null) {
                 return null;
             }
-            printInformation(resp);
             in = resp.getContent();
             BufferedInputStream bis = new BufferedInputStream(in);
             String charset = resp.getContentCharset().name();

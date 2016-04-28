@@ -2,6 +2,7 @@ package utils;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -18,19 +19,21 @@ public class HtmlUtils {
 
     // (?s)是Dotall mode开启、 (?i) 是case_insensitive开启
     // 匹配 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    private static final Pattern HTTP_EQUIV_PATTERN = Pattern.compile("<meta\\s+http-equiv\\s*=\\s*['\\\"]*\\s*"
-            + "Content-Type['\\\"]*\\s+content\\s*=\\s*['\\\"]" + "text/html;\\s*charset\\s*=\\s*([^'\\\"]+)['\\\"]",
-            Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
+    private static final Pattern HTTP_EQUIV_PATTERN = Pattern
+            .compile(
+                    "<meta\\s+http-equiv\\s*=\\s*['\\\"]*\\s*" + "Content-Type['\\\"]*\\s+content\\s*=\\s*['\\\"]"
+                            + "text/html;\\s*charset\\s*=\\s*([^'\\\"]+)['\\\"]",
+                    Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
 
     // 匹配<meta charset="utf-8">
-    private static final Pattern META_CHARSET_PATTERN = Pattern.compile(
-            "<meta\\s+charset\\s*=\\s*['\\\"]([^'\\\"]+)['\\\"]", Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
+    private static final Pattern META_CHARSET_PATTERN = Pattern
+            .compile("<meta\\s+charset\\s*=\\s*['\\\"]([^'\\\"]+)['\\\"]", Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
 
-    private static final Pattern TITLE_PATTERN = Pattern.compile("\\<title>(.*)\\</title>", Pattern.CASE_INSENSITIVE
-            | Pattern.DOTALL);
+    private static final Pattern TITLE_PATTERN = Pattern.compile("\\<title>(.*)\\</title>",
+            Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
 
-    private static Pattern ALL_LINKS = Pattern.compile("<\\s*?a.*?href=\"(.*?)\".*?>", Pattern.DOTALL
-            | Pattern.CASE_INSENSITIVE);
+    private static Pattern ALL_LINKS = Pattern.compile("<\\s*?a.*?href=\"(.*?)\".*?>",
+            Pattern.DOTALL | Pattern.CASE_INSENSITIVE);
 
     private static final Charset ASCII = Charset.forName("US-ASCII");
 
@@ -114,5 +117,15 @@ public class HtmlUtils {
             }
         }
         return list;
+    }
+
+    public static String getDomainName(String url) {
+        try {
+            URI uri = new URI(url);
+            String domain = uri.getHost();
+            return domain.startsWith("www.") ? domain.substring(4) : domain;
+        } catch (Exception e) {
+        }
+        return "";
     }
 }
