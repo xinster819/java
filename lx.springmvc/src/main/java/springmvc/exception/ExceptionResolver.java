@@ -1,8 +1,10 @@
-package lx.springmvc.exception;
+package springmvc.exception;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.ConversionNotSupportedException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -10,13 +12,15 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 
-
 /**
  * 这个是html版错误返回结果
+ * 
  * @author alchemistli
  */
-public class TestExceptionResolver extends SimpleMappingExceptionResolver {
+public class ExceptionResolver extends SimpleMappingExceptionResolver {
 
+    static Logger LOGGER = LoggerFactory.getLogger(ExceptionResolver.class);
+    
     @Override
     protected ModelAndView doResolveException(HttpServletRequest request, HttpServletResponse response, Object handler,
             Exception ex) {
@@ -35,6 +39,7 @@ public class TestExceptionResolver extends SimpleMappingExceptionResolver {
         mv.addObject("123", "456");
         // View view = new InternalResourceView("/error.jsp");
         // mv.setView(view);
+        LOGGER.error("error", ex);
         mv.setViewName("error");
         return mv;
     }

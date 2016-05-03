@@ -27,8 +27,20 @@
 	   <td>${one.checkInUri}</td>
 	   <td>${one.status}</td>
 	   <td>${one.formatDate}</td>
-	   <td><input type="button" value="点一下" /> </td>
+	   <td><input class="off-btn" type="button" url="${one.url}" value="下线" /> </td>
 	 </tr>
 #end
+<script>
+	$(".off-btn").click(function(){
+		var url = $(this).attr("url");
+		$.ajax({
+			url: '/api/sock/off',
+			data: {url: url},
+			success: function() {
+				console.log("dd");
+			}
+		});
+	});
+</script>
 </body>
 </html>

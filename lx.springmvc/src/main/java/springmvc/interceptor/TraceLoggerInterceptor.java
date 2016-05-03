@@ -1,4 +1,4 @@
-package lx.springmvc.interceptor;
+package springmvc.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

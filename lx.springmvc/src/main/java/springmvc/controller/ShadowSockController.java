@@ -3,9 +3,12 @@ package springmvc.controller;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -33,5 +36,31 @@ public class ShadowSockController {
         mv.addObject("list", list);
         mv.setViewName("shadow/list");
         return mv;
+    }
+
+    @RequestMapping("off")
+    @ResponseBody
+    public String off(@RequestParam("url") String url) {
+        ShadowSock s = shadowSockService.byUrl(url);
+        shadowSockService.off(s);
+        return "dd";
+    }
+
+    @RequestMapping(value = "login")
+    public ModelAndView login() {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("login");
+        return mv;
+    }
+
+    @RequestMapping(value = "submit", method = { RequestMethod.POST })
+    public ModelAndView login(@RequestParam("username") String username, @RequestParam("pwd") String pwd,
+            HttpServletRequest req) {
+        if ("alchemist".equals(username) && "~!@#$%qwer".equals(pwd)) {
+            req.getSession().setAttribute("god", "god");
+            req.getSession().setMaxInactiveInterval(1800);
+            return list();
+        }
+        return login();
     }
 }

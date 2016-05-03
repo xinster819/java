@@ -15,16 +15,22 @@
     <bean id="multipartResolver"
         class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></bean>
 
-    <bean id="testExceptionResolver" class="lx.springmvc.exception.TestExceptionResolver">
+    <bean id="exceptionResolver" class="springmvc.exception.ExceptionResolver">
         <property name="order" value="1" />
         <property name="defaultStatusCode" value="202" />
     </bean>
     <bean id="defaultHandlerExceptionResolver"
         class="org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver"></bean>
     <mvc:interceptors>
+    	<mvc:interceptor>
+    		<mvc:mapping path="/**"/>
+    		<mvc:exclude-mapping path="/sock/login"/>
+    		<mvc:exclude-mapping path="/sock/submit"/>
+    		<bean class="springmvc.interceptor.AuthInterceptor"></bean>
+    	</mvc:interceptor>
         <mvc:interceptor>
             <mvc:mapping path="/dd" />
-            <bean class="lx.springmvc.interceptor.TraceLoggerInterceptor"></bean>
+            <bean class="springmvc.interceptor.TraceLoggerInterceptor"></bean>
         </mvc:interceptor>
     </mvc:interceptors>
 

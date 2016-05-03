@@ -28,15 +28,24 @@ public class ShadowSockService {
     @Resource
     ShadowSockDao shadowSockDao;
 
+    public ShadowSock byUrl(String url) {
+        return shadowSockDao.byUrl(url);
+    }
+    
     public List<ShadowSock> all() {
         try {
             return shadowSockDao.all();
         } catch (Exception e) {
-            System.out.println(e);
+            LOGGER.error("select all failed", e);
         }
         return null;
     }
 
+    public void off(ShadowSock s) {
+        s.setStatus(ShadowSock.OFF);
+        shadowSockDao.updateStatus(s);
+    }
+    
     public void checkin() {
         List<ShadowSock> list = shadowSockDao.all();
         for (ShadowSock one : list) {

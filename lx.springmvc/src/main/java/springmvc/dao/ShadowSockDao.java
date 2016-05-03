@@ -19,11 +19,19 @@ public class ShadowSockDao {
     @Resource
     private ShadowSockMapper shadowSockMapper;
 
+    public ShadowSock byUrl(String url) {
+        return shadowSockMapper.byUrl(url);
+    }
+    
     public List<ShadowSock> all() {
         return shadowSockMapper.all();
     }
 
     public void checkIn(ShadowSock s) {
         shadowSockMapper.check_in(s);
+    }
+    
+    public void updateStatus(ShadowSock s) {
+        shadowSockMapper.updateStatus(s);
     }
 }
