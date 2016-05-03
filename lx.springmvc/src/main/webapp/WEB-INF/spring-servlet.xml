@@ -6,7 +6,10 @@
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <context:property-placeholder location="classpath:*properties/config.properties" />
+	<bean class="springmvc.spring.SpringPropertyPlaceholderConfigurer">
+		<property name="location" value="classpath:properties/config.properties" />
+	</bean>
+
     <context:component-scan base-package="springmvc"></context:component-scan>
     <import resource="classpath:spring/app-*.xml" />
 
@@ -34,7 +37,7 @@
     <bean id="multipartResolver"
         class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></bean>
 
-    <bean id="demoExceptionResolver" class="springmvc.exception.DemoExceptionResolver">
+    <bean id="httpExceptionResolver" class="springmvc.exception.HttpExceptionResolver">
         <property name="order" value="1" />
         <property name="defaultStatusCode" value="404" />
     </bean>
@@ -42,7 +45,7 @@
         class="org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver"></bean>
     <mvc:interceptors>
         <mvc:interceptor>
-            <mvc:mapping path="/api/show" />
+            <mvc:mapping path="/show" />
             <bean class="springmvc.interceptor.TraceLoggerInterceptor"></bean>
         </mvc:interceptor>
     </mvc:interceptors>

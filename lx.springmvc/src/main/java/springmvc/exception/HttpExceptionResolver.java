@@ -17,9 +17,9 @@ import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
  * 
  * @author alchemistli
  */
-public class DemoExceptionResolver extends SimpleMappingExceptionResolver {
+public class HttpExceptionResolver extends SimpleMappingExceptionResolver {
 
-    static Logger LOGGER = LoggerFactory.getLogger(DemoExceptionResolver.class);
+    static Logger LOGGER = LoggerFactory.getLogger(HttpExceptionResolver.class);
 
     @Override
     protected ModelAndView doResolveException(HttpServletRequest request, HttpServletResponse response, Object handler,

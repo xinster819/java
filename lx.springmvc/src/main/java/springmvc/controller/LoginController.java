@@ -30,7 +30,7 @@ public class LoginController {
         if (user == null) {
             return "capcha";
         }
-        return "hello";
+        return "show";
     }
 
     @RequestMapping(value = "loginAjax", method = { RequestMethod.GET, RequestMethod.POST })

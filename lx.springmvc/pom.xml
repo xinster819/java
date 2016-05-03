@@ -21,11 +21,6 @@
             <artifactId>commons-codec</artifactId>
             <version>1.10</version>
         </dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
-		</dependency>
 
 		<!-- 图片识别用的工具类 -->
 		<dependency>
@@ -249,6 +244,7 @@
 		<finalName>springmvc</finalName>
 		<resources>
 			<resource>
+				<filtering>false</filtering>
 				<directory>src/main/resources</directory>
 				<includes>
 					<include>**/*.xml</include>
@@ -328,6 +324,18 @@
                 <data.path>/opt/data</data.path>
                 <deploy.path>/opt/deploy/resin</deploy.path>
                 <log.path>/opt/logs/resin</log.path>
+                <!-- database part -->
+				<db.url>jdbc:mysql://10.11.157.130:3306/god</db.url>
+				<db.username>root</db.username>
+				<db.password>Lixin_819</db.password>
+				<db.initialSize>1</db.initialSize>
+				<db.maxActive>1</db.maxActive>
+				<db.maxIdle>1</db.maxIdle>
+				<db.minIdle>0</db.minIdle>
+				<db.maxWait>0</db.maxWait>
+				<db.testWhileIdle>true</db.testWhileIdle>
+				<db.validationQuery>select 1</db.validationQuery>
+				<!-- database part end -->
 			</properties>
 		</profile>
 		<profile>
@@ -348,6 +356,18 @@
 				<data.path>/opt/data</data.path>
 				<deploy.path>/opt/deploy/resin</deploy.path>
 				<log.path>/opt/logs/resin</log.path>
+				<!-- database part -->
+				<db.url>jdbc:mysql://10.11.157.130:3306/god</db.url>
+				<db.username>root</db.username>
+				<db.password>Lixin_819</db.password>
+				<db.initialSize>1</db.initialSize>
+				<db.maxActive>1</db.maxActive>
+				<db.maxIdle>1</db.maxIdle>
+				<db.minIdle>0</db.minIdle>
+				<db.maxWait>0</db.maxWait>
+				<db.testWhileIdle>true</db.testWhileIdle>
+				<db.validationQuery>select 1</db.validationQuery>
+				<!-- database part end -->
 			</properties>
 		</profile>
 	</profiles>
