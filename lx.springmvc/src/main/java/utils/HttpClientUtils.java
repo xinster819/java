@@ -16,6 +16,10 @@ import javax.net.ssl.X509TrustManager;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.http.conn.scheme.PlainSocketFactory;
+import org.apache.http.conn.scheme.Scheme;
+import org.apache.http.conn.scheme.SchemeRegistry;
+import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,8 +31,8 @@ import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpResponseException;
 import com.google.api.client.http.UrlEncodedContent;
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.http.javanet.NetHttpTransport.Builder;
+import com.google.api.client.http.apache.ApacheHttpTransport;
+import com.google.api.client.http.apache.ApacheHttpTransport.Builder;
 
 public class HttpClientUtils {
 
@@ -56,8 +60,14 @@ public class HttpClientUtils {
             };
             SSLContext ssl = SSLContext.getInstance("SSL");
             ssl.init(null, new TrustManager[] { tm }, null);
-            Builder builder = new NetHttpTransport.Builder();
-            builder.setSslSocketFactory(ssl.getSocketFactory());
+            // 创建SSLSocketFactory
+            SSLSocketFactory socketFactory = new SSLSocketFactory(ssl, null);
+
+            SchemeRegistry schemeRegistry = new SchemeRegistry();
+            schemeRegistry.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
+            schemeRegistry.register(new Scheme("https", socketFactory, 443));
+            Builder builder = new ApacheHttpTransport.Builder();
+            builder.setSocketFactory(socketFactory);
             // builder.setProxy(new Proxy(Proxy.Type.HTTP, new InetSocketAddress("127.0.0.1", 8888)));
             HRF = builder.build().createRequestFactory(new HttpRequestInitializer() {
                 public void initialize(HttpRequest request) throws IOException {
