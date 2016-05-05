@@ -1,5 +1,7 @@
 package springmvc.vo;
 
+import java.util.Date;
+
 public class User {
 
     private long userId;
@@ -7,6 +9,7 @@ public class User {
     private String email;
     private String portrait;
     private String password;
+    private Date ctime;
 
     public long getUserId() {
         return userId;
@@ -46,6 +49,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Date getCtime() {
+        return ctime;
+    }
+
+    public void setCtime(Date ctime) {
+        this.ctime = ctime;
     }
 
 }

@@ -24,7 +24,7 @@ public class UserDao implements BaseDao<User> {
 
     @Override
     public boolean update(User one) {
-        return false;
+        return userMapper.update(one);
     }
 
     @Override

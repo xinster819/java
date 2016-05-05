@@ -1,5 +1,7 @@
 package springmvc.controller;
 
+import java.util.Date;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
@@ -30,6 +32,8 @@ public class LoginController {
         if (user == null) {
             return "capcha";
         }
+        user.setCtime(new Date());
+        userDao.update(user);
         return "show";
     }
 

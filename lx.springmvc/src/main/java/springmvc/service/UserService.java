@@ -1,5 +1,7 @@
 package springmvc.service;
 
+import java.util.Date;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -23,6 +25,7 @@ public class UserService {
         user.setNick("god");
         user.setPassword("123456");
         user.setPortrait("por");
+        user.setCtime(new Date());
         userDao.insert(user);
     }
 }
