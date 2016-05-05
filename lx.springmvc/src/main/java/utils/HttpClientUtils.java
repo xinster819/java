@@ -58,6 +58,7 @@ public class HttpClientUtils {
             ssl.init(null, new TrustManager[] { tm }, null);
             Builder builder = new NetHttpTransport.Builder();
             builder.setSslSocketFactory(ssl.getSocketFactory());
+            // builder.setProxy(new Proxy(Proxy.Type.HTTP, new InetSocketAddress("127.0.0.1", 8888)));
             HRF = builder.build().createRequestFactory(new HttpRequestInitializer() {
                 public void initialize(HttpRequest request) throws IOException {
                     request.setConnectTimeout(4000);

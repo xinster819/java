@@ -34,4 +34,8 @@ public class ShadowSockDao {
     public void updateStatus(ShadowSock s) {
         shadowSockMapper.updateStatus(s);
     }
+    
+    public void insert(ShadowSock s) {
+        shadowSockMapper.insert(s);
+    }
 }

@@ -27,15 +27,60 @@
 	   <td>${one.checkInUri}</td>
 	   <td>${one.status}</td>
 	   <td>${one.formatDate}</td>
-	   <td><input class="off-btn" type="button" url="${one.url}" value="下线" /> </td>
+	   <td><input class="off-btn" type="button" url="${one.url}" value="下线" /><input class="checkin-btn" type="button" url="${one.url}" value="checkin" /> </td>
 	 </tr>
 #end
+	</tbody>
+</table>
+
+<form method="post">
+  <fieldset class="form-group">
+    <label for="exampleInputEmail1">url</label>
+    <input type="text" class="form-control" id="txt-url" placeholder="Enter url">
+  </fieldset>
+  <fieldset class="form-group">
+    <label for="exampleInputPassword1">login_uri</label>
+    <input type="text" class="form-control" id="txt-login_uri" placeholder="login_uri">
+  </fieldset>
+  <fieldset class="form-group">
+    <label for="exampleInputPassword1">check_in_uri</label>
+    <input type="text" class="form-control" id="txt-check_in_uri" placeholder="check_in_uri">
+  </fieldset>
+  <button type="button" id="add-btn" class="btn btn-primary">Submit</button>
+</form>
+
 <script>
 	$(".off-btn").click(function(){
 		var url = $(this).attr("url");
 		$.ajax({
 			url: '/api/sock/off',
 			data: {url: url},
+			success: function() {
+				console.log("dd");
+			}
+		});
+	});
+	
+	$(".checkin-btn").click(function(){
+		var url = $(this).attr("url");
+		$.ajax({
+			url: '/api/sock/checkinone',
+			data: {url: url},
+			success: function() {
+				console.log("dd");
+			}
+		});
+	});
+	
+	$("#add-btn").click(function(){
+		var url = $("#txt-url").val();
+		var loginUri = $("#txt-login_uri").val();
+		var checkInUri = $("#txt-check_in_uri").val();
+		console.log(url);
+		$.ajax({
+			url: '/api/sock/add',
+			type: 'post',
+			data: {url: url, loginUri: loginUri, checkInUri: checkInUri},
 			success: function() {
 				console.log("dd");
 			}

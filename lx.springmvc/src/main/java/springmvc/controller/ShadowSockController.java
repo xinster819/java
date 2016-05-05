@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,6 +30,14 @@ public class ShadowSockController {
         return "user";
     }
 
+    @RequestMapping("checkinone")
+    @ResponseBody
+    public String checkinByUrl(@RequestParam("url") String url) {
+        ShadowSock s = shadowSockService.byUrl(url);
+        shadowSockService.checkinOne(s);
+        return "user";
+    }
+
     @RequestMapping("list")
     public ModelAndView list() {
         ModelAndView mv = new ModelAndView();
@@ -43,6 +52,13 @@ public class ShadowSockController {
     public String off(@RequestParam("url") String url) {
         ShadowSock s = shadowSockService.byUrl(url);
         shadowSockService.off(s);
+        return "dd";
+    }
+
+    @RequestMapping(value = "add", method = { RequestMethod.POST })
+    @ResponseBody
+    public String add(@ModelAttribute("shadowSock") ShadowSock shadowSock) {
+        shadowSockService.createNewOne(shadowSock);
         return "dd";
     }
 
