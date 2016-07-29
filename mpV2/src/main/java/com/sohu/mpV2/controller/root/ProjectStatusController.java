@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import springmvc.spring.SpringPropertyPlaceholderConfigurer;
+import com.sohu.mpV2.spring.SpringPropertyPlaceholderConfigurer;
 
 @Controller
 @RequestMapping("root")

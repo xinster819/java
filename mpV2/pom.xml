@@ -22,19 +22,6 @@
             <version>1.10</version>
         </dependency>
 
-		<!-- 图片识别用的工具类 -->
-		<dependency>
-			<groupId>org.bytedeco.javacpp-presets</groupId>
-			<artifactId>tesseract</artifactId>
-			<version>3.03-rc1-0.11</version>
-		</dependency>
-
-        <dependency>
-            <groupId>com.google.code.maven-play-plugin.org.playframework</groupId>
-            <artifactId>jj-simplecaptcha</artifactId>
-            <version>1.1</version>
-        </dependency>
-
 		<dependency>
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
@@ -102,7 +89,6 @@
 			<version>${spring}</version>
 			<scope>compile</scope>
 		</dependency>
-
 
 		<dependency>
 			<groupId>org.mybatis</groupId>
@@ -286,12 +272,6 @@
 					<packagingExcludes>WEB-INF/web.xml</packagingExcludes>
 					<webResources>
 						<resource>
-							<directory>others</directory>
-							<includes>
-								<include>**/*</include>
-							</includes>
-						</resource>
-						<resource>
 							<directory>deploy</directory>
 							<targetPath>deploy</targetPath>
 							<filtering>true</filtering>
@@ -357,9 +337,12 @@
 				<deploy.path>/opt/deploy/resin</deploy.path>
 				<log.path>/opt/logs/resin</log.path>
 				<!-- database part -->
-				<db.url>jdbc:mysql://10.11.157.130:3306/god</db.url>
-				<db.username>root</db.username>
-				<db.password>Lixin_819</db.password>
+				<db.news.url>jdbc:mysql://10.10.13.167:3306/mp_news?useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull</db.news.url>
+				<db.news.username>mp_news_rw</db.news.username>
+				<db.news.password>G4+y2DrBAylbvpD</db.news.password>
+				<db.mp.url>jdbc:mysql://10.10.12.99:3306/mp?useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull</db.mp.url>
+				<db.mp.username>mp</db.mp.username>
+				<db.mp.password>i6jIe4MevHB34cb</db.mp.password>
 				<db.initialSize>1</db.initialSize>
 				<db.maxActive>1</db.maxActive>
 				<db.maxIdle>1</db.maxIdle>
