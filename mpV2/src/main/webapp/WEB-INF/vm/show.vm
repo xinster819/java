@@ -2,9 +2,38 @@
 <html>
 <head>
 <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0,user-scalable=no,minimum-scale=1.0, maximum-scale=1.0,width=device-width">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="email=no" name="format-detection">
 <title>Insert title here</title>
 </head>
-<body>
-	hehe
+   <script>
+        (function () {
+            var createStyle = function (cssText) {
+                var document = window.document;
+                var styleTag = document.createElement("style");
+                styleTag.setAttribute("type", "text/css");
+                styleTag.innerHTML = cssText;
+                document.getElementsByTagName("head").item(0).appendChild(styleTag);
+            };
+
+            var ua = window.navigator.userAgent;
+            var isMobile = ua.match(/(Android|iPhone|iPad)/);
+            var width = 320;
+            if (isMobile) {
+                width = document.body.clientWidth;
+                createStyle('html { font-size: ' + width * 12 / 320 + 'px; font-family: "Helvetica"; }');
+            } else {
+                createStyle('html { font-size: ' + width * 12 / 320 + 'px; font-family: "é»ä½-ç®", "Helvetica"; } ');
+                createStyle('textarea, input { font-family: "é»ä½-ç®"; } ');
+                createStyle('.doc { width: ' + width + 'px; height: ' + width * 16 / 9 + 'px; }');
+            }
+        }());
+    </script>
+<form action="1" method="post" enctype="multipart/form-data">
+	<input name="image" type="file" accept="image/*" />
+	<input type="submit" value="提交" />
+</form>
 </body>
 </html>

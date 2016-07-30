@@ -14,7 +14,7 @@ import com.sohu.mpV2.vo.MpNews;
 @RequestMapping("news")
 public class MpNewsController {
 
-    @Resource
+//    @Resource
     private MpNewsService mpNewsService;
 
     @RequestMapping("/{id}")

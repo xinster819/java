@@ -14,7 +14,7 @@ import com.sohu.mpV2.vo.MpMediaProfile;
 @RequestMapping("p")
 public class MpMediaProfileController {
 
-    @Resource
+//    @Resource
     private MpMediaProfileService mpMediaProfileService;
 
     @RequestMapping("{id}")
