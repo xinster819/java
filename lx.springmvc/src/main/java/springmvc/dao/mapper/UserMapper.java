@@ -11,7 +11,8 @@ import springmvc.vo.User;
 public interface UserMapper {
 
     @Select("select * from user where user_id = #{userId}")
-    @Results(value = { @Result(column = "user_id", property = "userId"), //
+    @Results(value = { 
+            @Result(column = "user_id", property = "userId"), //
             @Result(column = "nick", property = "nick"), //
             @Result(column = "email", property = "email"), //
             @Result(column = "portrait", property = "portrait"), //

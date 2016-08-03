@@ -1,14 +1,24 @@
 package springmvc.vo;
 
+@TableName(value = "lianjia")
 public class Lianjia {
+    @FieldName(value = "id")
     private String id;
+    @FieldName(value = "price")
     private int price;
+    @FieldName(value = "plot_name")
     private String plotName;
+    @FieldName(value = "structure")
     private String structure;
+    @FieldName(value = "area")
     private double area;
+    @FieldName(value = "direction")
     private String direction;
+    @FieldName(value = "floor")
     private String floor;
+    @FieldName(value = "construct_year")
     private int constructYear;
+    @FieldName(value = "url")
     private String url;
 
     public String getId() {
