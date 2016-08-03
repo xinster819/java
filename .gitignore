@@ -1,0 +1,14 @@
+.class
+*.class
+**/target
+target/**
+.class
+.project
+**/.settings
+**/.class
+**/META-INF
+/target
+*.iml
+*.eml
+.idea
+.classpath
