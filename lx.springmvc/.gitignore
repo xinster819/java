@@ -8,6 +8,8 @@ bin/
 *.iml
 *.ipr
 *.iws
+<<<<<<< HEAD
+=======
 .idea/
 
 # Geany project file
@@ -17,6 +19,7 @@ bin/
 .kdev4/
 *.kdev4
 
+>>>>>>> shadow
 # Build targets
 /target
 */target

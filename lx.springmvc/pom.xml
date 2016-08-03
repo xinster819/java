@@ -12,13 +12,15 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<!-- JAR VERSION -->
 		<spring>4.1.6.RELEASE</spring>
+		<jedis>2.7.2</jedis>
 	</properties>
 	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
-		</dependency>
+            
+       <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.10</version>
+        </dependency>
 
 		<!-- 图片识别用的工具类 -->
 		<dependency>
@@ -26,6 +28,12 @@
 			<artifactId>tesseract</artifactId>
 			<version>3.03-rc1-0.11</version>
 		</dependency>
+
+        <dependency>
+            <groupId>com.google.code.maven-play-plugin.org.playframework</groupId>
+            <artifactId>jj-simplecaptcha</artifactId>
+            <version>1.1</version>
+        </dependency>
 
 		<dependency>
 			<groupId>commons-fileupload</groupId>
@@ -64,7 +72,7 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-tx</artifactId>
-			<version>3.2.6.RELEASE</version>
+			<version>${spring}</version>
 			<scope>compile</scope>
 		</dependency>
 
@@ -93,12 +101,6 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${spring}</version>
 			<scope>compile</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-redis</artifactId>
-			<version>1.4.2.RELEASE</version>
 		</dependency>
 
 
@@ -140,10 +142,24 @@
 		</dependency>
 		<dependency>
 			<groupId>com.google.http-client</groupId>
+			<artifactId>google-http-client-jackson2</artifactId>
+			<version>1.19.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.http-client</groupId>
 			<artifactId>google-http-client-test</artifactId>
 			<version>1.19.0</version>
 		</dependency>
-
+		<dependency>
+			<groupId>com.google.http-client</groupId>
+			<artifactId>google-http-client-jackson</artifactId>
+			<version>1.19.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.auth</groupId>
+			<artifactId>google-auth-library-oauth2-http</artifactId>
+			<version>0.3.1</version>
+		</dependency>
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
@@ -152,7 +168,7 @@
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-jdbc</artifactId>
-			<version>7.0.50</version>
+			<version>7.0.65</version>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
@@ -190,7 +206,7 @@
 		<dependency>
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>
-			<version>2.7.2</version>
+			<version>${jedis}</version>
 		</dependency>
 
 		<!-- html parser -->
@@ -205,19 +221,30 @@
 			<version>2.4.1</version>
 		</dependency>
 
-		<!-- netty -->
 		<dependency>
-			<groupId>io.netty</groupId>
-			<artifactId>netty-all</artifactId>
-			<version>4.0.29.Final</version>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.7</version>
 		</dependency>
 
-
+        <!-- test -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring}</version>
+            <scope>test</scope>
+        </dependency> 
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+        </dependency>
 	</dependencies>
 	<build>
-		<finalName>lx.springmvc</finalName>
+		<finalName>springmvc</finalName>
 		<resources>
 			<resource>
+				<filtering>false</filtering>
 				<directory>src/main/resources</directory>
 				<includes>
 					<include>**/*.xml</include>
@@ -264,31 +291,23 @@
 								<include>**/*</include>
 							</includes>
 						</resource>
+						<resource>
+							<directory>deploy</directory>
+							<targetPath>deploy</targetPath>
+							<filtering>true</filtering>
+							<includes>
+								<include>**/*.sh</include>
+								<include>**/*.xml</include>
+							</includes>
+						</resource>
 					</webResources>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.mortbay.jetty</groupId>
-				<artifactId>jetty-maven-plugin</artifactId>
-				<version>8.1.9.v20130131</version>
-				<configuration>
-					<webAppConfig>
-						<contextPath>/</contextPath>
-						<descriptor>${basedir}/src/main/webapp/WEB-INF/web.xml</descriptor>
-					</webAppConfig>
-					<connectors>
-						<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
-							<port>8080</port>
-							<maxIdleTime>60000</maxIdleTime>
-						</connector>
-					</connectors>
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
 	<profiles>
 		<profile>
-			<id>company</id>
+			<id>dev</id>
 			<activation>
 				<jdk>1.7</jdk>
 				<property>
@@ -298,19 +317,29 @@
 			</activation>
 			<properties>
 				<env>sohu</env>
-				<db.jdbc.driverClassName>com.mysql.jdbc.Driver</db.jdbc.driverClassName>
-				<db.username>cmt</db.username>
-				<db.password>cmt</db.password>
-				<db.url>jdbc:mysql://10.10.85.62:3306/cyanstat</db.url>
-				<db.initial.size>2</db.initial.size>
-				<db.max.active>8</db.max.active>
-				<db.min.idle>0</db.min.idle>
-				<db.max.idle>2</db.max.idle>
-				<db.max.wait>-1</db.max.wait>
+                <name>login</name>
+                <resin.server>10.11.157.130:8088</resin.server>
+                <bin.path>/opt/bin/resin</bin.path>
+                <conf.path>/opt/conf/resin</conf.path>
+                <data.path>/opt/data</data.path>
+                <deploy.path>/opt/deploy/resin</deploy.path>
+                <log.path>/opt/logs/resin</log.path>
+                <!-- database part -->
+				<db.url>jdbc:mysql://10.11.157.130:3306/god</db.url>
+				<db.username>root</db.username>
+				<db.password>Lixin_819</db.password>
+				<db.initialSize>1</db.initialSize>
+				<db.maxActive>1</db.maxActive>
+				<db.maxIdle>1</db.maxIdle>
+				<db.minIdle>0</db.minIdle>
+				<db.maxWait>0</db.maxWait>
+				<db.testWhileIdle>true</db.testWhileIdle>
+				<db.validationQuery>select 1</db.validationQuery>
+				<!-- database part end -->
 			</properties>
 		</profile>
 		<profile>
-			<id>shit</id>
+			<id>prod</id>
 			<activation>
 				<jdk>1.7</jdk>
 				<property>
@@ -319,16 +348,26 @@
 				</property>
 			</activation>
 			<properties>
-				<env>shit</env>
-				<db.jdbc.driverClassName>com.mysql.jdbc.Driver</db.jdbc.driverClassName>
-				<db.username>cmt</db.username>
-				<db.password>cmt</db.password>
-				<db.url>jdbc:mysql://10.10.85.62:3306/cyanstat</db.url>
-				<db.initial.size>2</db.initial.size>
-				<db.max.active>8</db.max.active>
-				<db.min.idle>0</db.min.idle>
-				<db.max.idle>2</db.max.idle>
-				<db.max.wait>-1</db.max.wait>
+				<env>prod</env>
+				<name>springmvc</name>
+				<resin.server>10.11.157.130:8080</resin.server>
+				<bin.path>/opt/bin/resin</bin.path>
+				<conf.path>/opt/conf/resin</conf.path>
+				<data.path>/opt/data</data.path>
+				<deploy.path>/opt/deploy/resin</deploy.path>
+				<log.path>/opt/logs/resin</log.path>
+				<!-- database part -->
+				<db.url>jdbc:mysql://10.11.157.130:3306/god</db.url>
+				<db.username>root</db.username>
+				<db.password>Lixin_819</db.password>
+				<db.initialSize>1</db.initialSize>
+				<db.maxActive>1</db.maxActive>
+				<db.maxIdle>1</db.maxIdle>
+				<db.minIdle>0</db.minIdle>
+				<db.maxWait>0</db.maxWait>
+				<db.testWhileIdle>true</db.testWhileIdle>
+				<db.validationQuery>select 1</db.validationQuery>
+				<!-- database part end -->
 			</properties>
 		</profile>
 	</profiles>

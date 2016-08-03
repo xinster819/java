@@ -7,7 +7,7 @@
         </encoder>
     </appender>
 
-    <logger name="lx" level="INFO" additivity="false">
+    <logger name="demo" level="INFO" additivity="false">
         <appender-ref ref="STDOUT" />
     </logger>
 
