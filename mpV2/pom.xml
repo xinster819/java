@@ -346,7 +346,7 @@
 			<properties>
 				<env>prod</env>
 				<name>springmvc</name>
-				<resin.server>10.11.157.130:8080</resin.server>
+				<resin.server>10.10.68.71:8078</resin.server>
 				<bin.path>/opt/bin/resin</bin.path>
 				<conf.path>/opt/conf/resin</conf.path>
 				<data.path>/opt/data</data.path>
