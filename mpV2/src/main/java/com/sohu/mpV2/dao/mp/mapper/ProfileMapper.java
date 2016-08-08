@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Update;
 
 import com.sohu.mpV2.vo.MpMediaProfile;
 
-public interface MpMediaProfileMapper {
+public interface ProfileMapper {
 
     @Select("select * from mp_media_profile where id=#{id}")
     @Results(value = { @Result(column = "id", property = "id"), //

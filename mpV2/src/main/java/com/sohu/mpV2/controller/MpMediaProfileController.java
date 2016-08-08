@@ -5,8 +5,12 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.sohu.mpV2.response.BaseResponse;
+import com.sohu.mpV2.response.ProfileResponse;
+import com.sohu.mpV2.response.ResponseStatus;
 import com.sohu.mpV2.service.MpMediaProfileService;
 import com.sohu.mpV2.vo.MpMediaProfile;
 
@@ -14,7 +18,7 @@ import com.sohu.mpV2.vo.MpMediaProfile;
 @RequestMapping("p")
 public class MpMediaProfileController {
 
-//    @Resource
+    @Resource
     private MpMediaProfileService mpMediaProfileService;
 
     @RequestMapping("{id}")
@@ -23,5 +27,17 @@ public class MpMediaProfileController {
         MpMediaProfile byId = mpMediaProfileService.byId(id);
         System.out.println(byId.getMpMediaId());
         return byId.getSiteUrl();
+    }
+
+    @RequestMapping("/full")
+    @ResponseBody
+    public BaseResponse fullProfile(@RequestParam("passport") String passport) {
+        MpMediaProfile profile = mpMediaProfileService.byMpMediaId(passport);
+        if (profile == null) {
+            return new BaseResponse(ResponseStatus.FAIL);
+        }
+        ProfileResponse resp = new ProfileResponse(ResponseStatus.SUCC);
+        resp.setMpMediaProfile(profile);
+        return resp;
     }
 }

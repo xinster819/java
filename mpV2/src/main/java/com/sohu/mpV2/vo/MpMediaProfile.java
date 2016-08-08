@@ -1,13 +1,26 @@
 package com.sohu.mpV2.vo;
 
-public class MpMediaProfile {
+import java.io.Serializable;
+
+public class MpMediaProfile implements Serializable{
+
+    private static final long serialVersionUID = 1L;
 
     private int id;
     private String mpMediaId;
     private String SiteUrl;
+    private int copyRight;
     private int mediaType;
     private int auditType;
     private boolean auditStatus;
+    private int fromWhere;
+    private int grade;
+    private boolean isGrab;
+    private boolean pass;
+    private int mpChannelId;
+    private int cmsMediaId;
+    private int channelModified;
+    private String weiboUrl;
 
     public int getId() {
         return id;
@@ -57,4 +70,75 @@ public class MpMediaProfile {
         this.auditStatus = auditStatus;
     }
 
+    public int getFromWhere() {
+        return fromWhere;
+    }
+
+    public void setFromWhere(int fromWhere) {
+        this.fromWhere = fromWhere;
+    }
+
+    public int getGrade() {
+        return grade;
+    }
+
+    public void setGrade(int grade) {
+        this.grade = grade;
+    }
+
+    public boolean isPass() {
+        return pass;
+    }
+
+    public void setPass(boolean pass) {
+        this.pass = pass;
+    }
+
+    public int getMpChannelId() {
+        return mpChannelId;
+    }
+
+    public void setMpChannelId(int mpChannelId) {
+        this.mpChannelId = mpChannelId;
+    }
+
+    public int getCopyRight() {
+        return copyRight;
+    }
+
+    public void setCopyRight(int copyRight) {
+        this.copyRight = copyRight;
+    }
+
+    public boolean isGrab() {
+        return isGrab;
+    }
+
+    public void setGrab(boolean isGrab) {
+        this.isGrab = isGrab;
+    }
+
+    public int getCmsMediaId() {
+        return cmsMediaId;
+    }
+
+    public void setCmsMediaId(int cmsMediaId) {
+        this.cmsMediaId = cmsMediaId;
+    }
+
+    public int getChannelModified() {
+        return channelModified;
+    }
+
+    public void setChannelModified(int channelModified) {
+        this.channelModified = channelModified;
+    }
+
+    public String getWeiboUrl() {
+        return weiboUrl;
+    }
+
+    public void setWeiboUrl(String weiboUrl) {
+        this.weiboUrl = weiboUrl;
+    }
 }

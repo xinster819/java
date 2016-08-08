@@ -75,7 +75,7 @@ public class HttpClientUtils {
         }
     }
 
-    public static HttpResponse post(String url, Map<String, String> param, Map<String, String> _headers) {
+    public static String post(String url, Map<String, String> param, Map<String, String> _headers) {
         UrlEncodedContent hc = new UrlEncodedContent(param);
         try {
             HttpRequest req = HRF.buildPostRequest(new GenericUrl(url), hc);
@@ -86,21 +86,21 @@ public class HttpClientUtils {
                 headers.put(_header.getKey(), _header.getValue());
             }
             req.setHeaders(headers);
-            return req.execute();
+            HttpResponse resp = req.execute();
+            InputStream content = resp.getContent();
+            if (content == null) {
+                return null;
+            }
+            BufferedInputStream bis = new BufferedInputStream(content);
+            String charset = resp.getContentCharset().name();
+            if (StringUtils.isEmpty(charset) || "ISO-8859-1".equals(charset)) {
+                charset = HtmlUtils.detect(bis);
+            }
+            return IOUtils.toString(bis, charset);
         } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
-    }
-
-    public static void printInformation(HttpResponse resp) {
-        HttpHeaders headers = resp.getHeaders();
-        for (String key : headers.keySet()) {
-            System.out.println(key + " -- " + headers.get(key));
-        }
-        String cookie = resp.getHeaders().getCookie();
-        System.out.println(resp.getStatusCode());
-        System.out.println(cookie);
     }
 
     public static String getHtml(String url, Map<String, String> params, Object cookie) {
@@ -157,7 +157,6 @@ public class HttpClientUtils {
             if (resp == null) {
                 return null;
             }
-            printInformation(resp);
             in = resp.getContent();
             BufferedInputStream bis = new BufferedInputStream(in);
             String charset = resp.getContentCharset().name();
@@ -213,7 +212,6 @@ public class HttpClientUtils {
             try {
                 bis.close();
             } catch (IOException e) {
-                // logger
             }
         }
     }

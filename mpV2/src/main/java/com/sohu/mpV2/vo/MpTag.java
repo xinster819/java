@@ -2,15 +2,22 @@ package com.sohu.mpV2.vo;
 
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 public class MpTag {
 
     private int id;
     private String name;
     private String url;
+    @JSONField(serialize = false)
     private int status;
+    @JSONField(serialize = false)
     private int categoryId;
+    @JSONField(serialize = false)
     private int channelId;
+    @JSONField(serialize = false)
     private boolean type;
+    @JSONField(serialize = false)
     private Date createTime;
 
     public int getId() {

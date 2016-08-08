@@ -20,17 +20,10 @@ public class UploadController {
 
     @RequestMapping(value = "1", method = {RequestMethod.POST, RequestMethod.GET})
     @ResponseBody
-    public String r(@RequestParam("image")MultipartFile f) {
+    public String r(@RequestParam("image")MultipartFile f) throws ImageProcessingException, MetadataException {
         try {
-            ImageUtil.test1(f.getBytes());
-            ImageUtil.test(f.getBytes());
+            ImageUtil.fixOrientation(f.getBytes());
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ImageProcessingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (MetadataException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return "ok";

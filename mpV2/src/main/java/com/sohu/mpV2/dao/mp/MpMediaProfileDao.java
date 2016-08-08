@@ -9,12 +9,19 @@ import com.sohu.mpV2.vo.MpMediaProfile;
 
 @Component
 public class MpMediaProfileDao {
-    
+
     @Resource
     private MpMediaProfileMapper mpMediaProfileMapper;
-    
+
     public MpMediaProfile byId(int id) {
         return mpMediaProfileMapper.byId(id);
     }
-    
+
+    public MpMediaProfile byMpMediaId(String mpMediaId) {
+        return mpMediaProfileMapper.byMpMediaId(mpMediaId);
+    }
+
+    public void updateWeiboUrl(MpMediaProfile mpMediaProfile) {
+        mpMediaProfileMapper.updateWeiboUrl(mpMediaProfile);
+    }
 }

@@ -20,6 +20,7 @@ public interface MpNewsMapper {
             @Result(column = "origin_source", property = "originSource"), //
             @Result(column = "mp_media_id", property = "mpMediaId"), //
             @Result(column = "gather_time", property = "gatherTime"), //
+            @Result(column = "channel_id", property = "channelId"), //
             @Result(column = "post_time", property = "postTime") })
     public MpNews byId(@Param("index") int index, @Param("id") long id);
 
