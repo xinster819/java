@@ -4,8 +4,6 @@ import java.util.zip.CRC32;
 
 public class AuditProfile {
 
-    private MpMediaProfile mpMediaProfile;
-
     private static int getRouteTableIndex(String key, int size) {
         try {
             CRC32 checksum = new CRC32();

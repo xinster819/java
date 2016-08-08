@@ -1,7 +1,6 @@
 package com.sohu.mpV2.response;
 
 import java.util.Collection;
-import java.util.List;
 
 import com.sohu.mpV2.vo.CodeArea;
 
